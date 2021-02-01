@@ -1,13 +1,13 @@
 <?php
 session_start();
-if ($_SESSION['auth'] == false)
-{
+if ($_SESSION['auth'] == false) {
     //если пользователь не авторизован
     header('location: login.php');
 }
+require 'my_help.php';
 ?>
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="html-18px">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -27,7 +27,10 @@ if ($_SESSION['auth'] == false)
 
 <!--MAIN-->
 <main>
-    <?php require "blocks/main_staff.php" ?>
+    <?  ?>
+    <?
+    require "blocks/main_staff.php";
+    ?>
 </main>
 
 <!--Конец MAIN-->
