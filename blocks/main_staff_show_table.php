@@ -1,12 +1,15 @@
 <?
-//Создает подключения к БД
-R::setup('mysql:host=localhost;dbname=tania_valerova', 'root', 'root');
+/*01-Подключение к базе данных*/
+require "rb/rb-mysql.php";
+require_once "dbConnection.php";
 
-//Проверка работы подключения к БД
+R::setup(get_db_dns(), get_db_username(), get_db_password());
+
 if (!R::testConnection())
 {
     exit('Нет подключения к базе данных');
 }
+/*02-Подключение к базе данных*/
 //Беру из базы всех сотрудников
 $staff_arr = R::findall('staff');
 ?>
