@@ -10,7 +10,7 @@
 
 <!--Подключение ReadBeanPHP-->
 <?php
-    require "rb/rb-mysql.php";
+require_once "rb/rb-mysql.php";
 ?>
 <!--Конец ReadBeanPHP-->
 

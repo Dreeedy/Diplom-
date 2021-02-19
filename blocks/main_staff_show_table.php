@@ -1,6 +1,6 @@
 <?
 /*01-Подключение к базе данных*/
-require "rb/rb-mysql.php";
+require_once "rb/rb-mysql.php";
 require_once "dbConnection.php";
 
 R::setup(get_db_dns(), get_db_username(), get_db_password());

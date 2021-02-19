@@ -12,6 +12,8 @@
 
             </div>
         </div>
-        <?php require "blocks/main_staff_show_table.php" ?>
+        <div class="">
+            <?php require "blocks/main_staff_show_table.php" ?>
+        </div>
     </div>
 </div>

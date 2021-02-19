@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "rb/rb-mysql.php";
+require_once "rb/rb-mysql.php";
 
 //Создает подключения к БД
 R::setup('mysql:host=localhost;dbname=tania_valerova', 'root', 'root');
@@ -146,11 +146,11 @@ function reg_user()
     $role = R::load('roles', $role_ID->id);
 
     $staf = R::dispense('staff');
-    $staf->surname = $_SESSION['REGISTER']['inputSurname'];
-    $staf->name = $_SESSION['REGISTER']['inputName'];
-    $staf->middleName = $_SESSION['REGISTER']['inputMiddleName'];
-    $staf->phoneNumber = $_SESSION['REGISTER']['inputPhoneNumber'];
-    $staf->password = $_SESSION['REGISTER']['inputPassword'];
+    $staf->surname      = $_SESSION['REGISTER']['inputSurname'];
+    $staf->name         = $_SESSION['REGISTER']['inputName'];
+    $staf->middleName   = $_SESSION['REGISTER']['inputMiddleName'];
+    $staf->phoneNumber  = $_SESSION['REGISTER']['inputPhoneNumber'];
+    $staf->password     = $_SESSION['REGISTER']['inputPassword'];
 
     $role->ownStaffList[] = $staf;
     R::store($role);
