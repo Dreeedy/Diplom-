@@ -22,6 +22,7 @@ $customers_arr = R::findall('customers');
         <th scope="col">Отчество</th>
         <th scope="col">Телефон</th>
         <th scope="col">Адрес</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -40,6 +41,17 @@ $customers_arr = R::findall('customers');
         <td>'.$customer->middle_name.'</td>
         <td>'.$customer->phone_number.'</td>
         <td>'.$customer->address.'</td>
+        <td>
+        <form method="get" action="../customers_show.php">
+            <input type="hidden" name="customer_id" value='.$customer->id.'>
+            <input type="hidden" name="customer_surname" value='.$customer->surname.'>
+            <input type="hidden" name="customer_name" value='.$customer->name.'>
+            <input type="hidden" name="customer_middle_name" value='.$customer->middle_name.'>
+            <input type="hidden" name="customer_phone_number" value='.$customer->phone_number.'>
+            <input type="hidden" name="customer_address" value='.$customer->address.'>
+            <button type="submit" class="btn btn-outline-primary btn-sm">Выбрать</button>
+        </form>
+        </td>
     </tr>
     ';
         $i++;
