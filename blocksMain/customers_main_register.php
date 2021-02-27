@@ -39,6 +39,28 @@
             <form action="../customersController.php" method="post" class="needs-validation">
 
                 <div class="row g-3 mb-2">
+
+                    <div class="col-12">
+                        <select name="gender" class="form-select form-control" aria-label=".form-select-sm example">
+                            <?php
+                            //выбор гендера
+                            if ($_SESSION['REGISTER']['CUSTOMER']['gender'] == "select_gender") {
+                                echo '<option selected value="select_gender">Укажите пол</option>';
+                                echo '<option value="Мужчина">Мужчина</option>';
+                                echo '<option value="Женщина">Женщина</option>';
+                            } elseif ($_SESSION['REGISTER']['CUSTOMER']['gender'] == 'male') {
+                                echo '<option value="select_gender">Выберите роль сотрудника</option>';
+                                echo '<option selected value="Мужчина">Мужчина</option>';
+                                echo '<option value="Женщина">Женщина</option>';
+                            } elseif ($_SESSION['REGISTER']['CUSTOMER']['gender'] == 'female') {
+                                echo '<option value="select_gender">Выберите роль сотрудника</option>';
+                                echo '<option value="Мужчина">Мужчина</option>';
+                                echo '<option selected value="Женщина">Женщина</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+
                     <div class="col-12">
                         <label for="surname" class="visually-hidden">Фамилия</label>
                         <input type="text" class="form-control" id="surname" name="surname" placeholder="Фамилия"

@@ -36,69 +36,89 @@
         </div>
         <div class="col-md-8 col-lg-9">
             <h4 class="mb-3">Создание акта о бракосочетании</h4>
-            <form action="../customersController.php" method="post" class="needs-validation">
+            <form action="../controllers/actsMarriageController.php" method="post" class="needs-validation">
 
                 <div class="row g-3 mb-2">
+
+                    <!--01 - Муж - Open -->
                     <div class="col-12">
-                        <label for="surname" class="visually-hidden">Фамилия</label>
-                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Фамилия"
-                               value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['surname'] ?>" minlength="2"
+                        <label for="husband_surname" class="visually-hidden">Фамилия гражданина</label>
+                        <input type="text" class="form-control" id="husband_surname" name="husband_surname" placeholder="Фамилия гражданина"
+                               value="<?php echo $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'] ?>" minlength="2"
                                maxlength="33"
                                required="">
                     </div>
                     <div class="col-12">
-                        <label for="name" class="visually-hidden">Имя</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Имя"
-                               value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['name'] ?>" minlength="2"
+                        <label for="husband_name" class="visually-hidden">Имя гражданина</label>
+                        <input type="text" class="form-control" id="husband_name" name="husband_name" placeholder="Имя гражданина"
+                               value="<?php echo $_SESSION['MARRIAGE']['HUSBAND']['husband_name'] ?>" minlength="2"
                                maxlength="33"
                                required="">
                     </div>
                     <div class="col-12">
-                        <label for="middleName" class="visually-hidden">Отчество</label>
-                        <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Отчество"
-                               value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['middleName'] ?>" minlength="2"
+                        <label for="husband_middleName" class="visually-hidden">Отчество гражданина</label>
+                        <input type="text" class="form-control" id="husband_middleName" name="husband_middleName" placeholder="Отчество гражданина"
+                               value="<?php echo $_SESSION['MARRIAGE']['HUSBAND']['husband_middleName'] ?>" minlength="2"
                                maxlength="33"
                                required="">
                     </div>
-                    <div class="col-12">
-                        <label for="address" class="visually-hidden">Адрес</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Адрес"
-                               value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['address'] ?>" minlength="2"
-                               maxlength="33"
-                               required="">
-                    </div>
-                    <div class="col-12">
-                        <label for="phoneNumber" class="visually-hidden">Номер телефона</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                               placeholder="8 495 123-45-67"
-                               value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['phoneNumber'] ?>" minlength="10"
-                               maxlength="15"
-                               required="">
-                    </div>
-                    <div class="col-12">
+                    <div class="col-12 <? if ($_SESSION['MARRIAGE']['HUSBAND']['visually_hidden'] == false){ echo 'visually-hidden';}else{ echo '';} ?>">
                         <?
                         //вывод ошибок
-                        if ($_SESSION['REGISTER']['CUSTOMER']['reg'] == false & !empty($_SESSION['REGISTER']['CUSTOMER']['ERRORS']))
+                                                if ($_SESSION['MARRIAGE']['reg'] == false & !empty($_SESSION['MARRIAGE']['HUSBAND']['ERRORS']))
+                                                {
+                                                    foreach ($_SESSION['MARRIAGE']['HUSBAND']['ERRORS'] as $error)
+                                                    {
+                                                        echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
+                                                    }
+                                                }
+                        ?>
+                    </div><!--ошибки-->
+                    <!--02 - Муж - Close -->
+                    <hr>
+                    <!--01 - Жена - Open -->
+                    <div class="col-12 mt-0">
+                        <label for="wife_surname" class="visually-hidden">Фамилия гражданки</label>
+                        <input type="text" class="form-control" id="wife_surname" name="wife_surname" placeholder="Фамилия гражданки"
+                               value="<?php echo $_SESSION['MARRIAGE']['WIFE']['wife_surname'] ?>" minlength="2"
+                               maxlength="33"
+                               required="">
+                    </div>
+                    <div class="col-12">
+                        <label for="wife_name" class="visually-hidden">Имя гражданки</label>
+                        <input type="text" class="form-control" id="wife_name" name="wife_name" placeholder="Имя гражданки"
+                               value="<?php echo $_SESSION['MARRIAGE']['WIFE']['wife_name'] ?>" minlength="2"
+                               maxlength="33"
+                               required="">
+                    </div>
+                    <div class="col-12">
+                        <label for="wife_middleName" class="visually-hidden">Отчество гражданки</label>
+                        <input type="text" class="form-control" id="wife_middleName" name="wife_middleName" placeholder="Отчество гражданки"
+                               value="<?php echo $_SESSION['MARRIAGE']['WIFE']['wife_middleName'] ?>" minlength="2"
+                               maxlength="33"
+                               required="">
+                    </div>
+                    <div class="col-12 <? if ($_SESSION['MARRIAGE']['WIFE']['visually_hidden'] == false){ echo 'visually-hidden';}else{ echo '';} ?>">
+                        <?
+                        //вывод ошибок
+                        if ($_SESSION['MARRIAGE']['reg'] == false & !empty($_SESSION['MARRIAGE']['WIFE']['ERRORS']))
                         {
-                            foreach ($_SESSION['REGISTER']['CUSTOMER']['ERRORS'] as $error)
+                            foreach ($_SESSION['MARRIAGE']['WIFE']['ERRORS'] as $error)
                             {
                                 echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
                             }
                         }
-
-                        //вывод успешный действий
-                        if ($_SESSION['REGISTER']['CUSTOMER']['reg'] == true & !empty($_SESSION['REGISTER']['CUSTOMER']['SUCCESS']))
-                        {
-                            foreach ($_SESSION['REGISTER']['CUSTOMER']['SUCCESS'] as $success)
-                            {
-                                echo '<div class="alert alert alert-success mb-1 p-1 text-center" role="alert">' . $success . '</div>';
-                            }
-                        }
                         ?>
+                    </div><!--ошибки-->
+                    <!--02 - Жена - Close -->
+                    <hr>
+                    <div class="col-12 mb-2 mt-0"><!--дата заключения брака-->
+                        <label for="marriage_date" class="visually-hidden">Дата заключения брака</label>
+                        <input type="date" class="form-control" id="marriage_date" name="marriage_date" placeholder="Дата заключения брака 0000 00 00"
+                               value="<?php echo $_SESSION['MARRIAGE']['marriage_date'] ?>" required="">
                     </div>
                 </div>
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Зарегистрировать Клиента</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Создать</button>
             </form>
         </div>
     </div>

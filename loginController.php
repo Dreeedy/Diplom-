@@ -44,6 +44,7 @@ function log_in($request)
 function fillSession($request)
 {
     $_SESSION['code'] = $request['code'];
+    $_SESSION['staff_id'] = 0;
     $_SESSION['inputSurname'] = $request['inputSurname'];
     $_SESSION['inputName'] = $request['inputName'];
     $_SESSION['inputMiddleName'] = $request['inputMiddleName'];
@@ -129,6 +130,7 @@ function find_user()
         //если есть такой пользователь, проверяем пароль
         if ($staf_id->password == $_SESSION['inputPassword'])
         {
+            $_SESSION['staff_id'] = $staf_id->id;
             //если пароли совпадают
             //header('location: index.php');
         }

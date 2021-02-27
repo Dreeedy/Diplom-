@@ -43,6 +43,7 @@ function login_or_register()
 
 function fill_session($post)
 {
+    $_SESSION['REGISTER']['CUSTOMER']['gender'] = $post['gender'];//пол
     $_SESSION['REGISTER']['CUSTOMER']['surname'] = $post['surname'];
     $_SESSION['REGISTER']['CUSTOMER']['name'] = $post['name'];
     $_SESSION['REGISTER']['CUSTOMER']['middleName'] = $post['middleName'];
@@ -57,6 +58,11 @@ function fill_session($post)
 
 function data_validate()
 {
+    //gender
+    if ($_SESSION['REGISTER']['CUSTOMER']['gender'] == "select_gender") {
+        array_push($_SESSION['REGISTER']['CUSTOMER']['ERRORS'], "Необходимо указать пол клиента");
+    }
+
     //surname
     if (preg_match('/[^,\p{Cyrillic}]/ui', $_SESSION['REGISTER']['CUSTOMER']['surname']))
     {
@@ -102,7 +108,7 @@ function find_user()
     if ($customer_id != NULL)
     {
         //если есть такой клиент, говорим что такой уже есть
-        array_push($_SESSION['REGISTER']['CUSTOMER']['ERRORS'], "Такой Клиент уже зарегистрирован");
+        array_push($_SESSION['REGISTER']['CUSTOMER']['ERRORS'], "Клиент уже зарегистрирован");
     }
 }
 
@@ -116,6 +122,7 @@ function register_customer()
     $role = R::load('roles', $role_id->id);
 
     $customer = R::dispense('customers');
+    $customer->gender       = $_SESSION['REGISTER']['CUSTOMER']['gender'];
     $customer->surname      = $_SESSION['REGISTER']['CUSTOMER']['surname'];
     $customer->name         = $_SESSION['REGISTER']['CUSTOMER']['name'];
     $customer->middleName   = $_SESSION['REGISTER']['CUSTOMER']['middleName'];
@@ -140,6 +147,7 @@ function register_customer()
 
 function clear_user()
 {
+    $_SESSION['REGISTER']['CUSTOMER']['gender'] = "select_gender";
     $_SESSION['REGISTER']['CUSTOMER']['surname'] = '';
     $_SESSION['REGISTER']['CUSTOMER']['name'] = '';
     $_SESSION['REGISTER']['CUSTOMER']['middleName'] = '';
