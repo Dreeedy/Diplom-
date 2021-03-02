@@ -117,6 +117,31 @@
                         <input type="date" class="form-control" id="marriage_date" name="marriage_date" placeholder="Дата заключения брака 0000 00 00"
                                value="<?php echo $_SESSION['MARRIAGE']['marriage_date'] ?>" required="">
                     </div>
+                    <div class="col-12 my-1">
+                    <?
+                    //вывод ошибок
+                    if ($_SESSION['MARRIAGE']['reg'] == false & !empty($_SESSION['MARRIAGE']['ERRORS']))
+                    {
+                        foreach ($_SESSION['MARRIAGE']['ERRORS'] as $error)
+                        {
+                            echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
+                        }
+                    }
+
+                    //вывод успешный действий
+                    if ($_SESSION['MARRIAGE']['reg'] == true & !empty($_SESSION['MARRIAGE']['SUCCESS']))
+                    {
+                        {
+                            foreach ( $_SESSION['MARRIAGE']['SUCCESS'] as $success)
+                            {
+                                echo '<div class="alert alert alert-success mb-1 p-1 text-center" role="alert">' . $success . '</div>';
+                            }
+                        }
+
+                        $_SESSION['MARRIAGE']['reg'] = false;
+                    }
+                    ?>
+                    </div><!--ошибки-->
                 </div>
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Создать</button>
             </form>
