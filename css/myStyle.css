@@ -1,0 +1,7 @@
+.accordion-button::after {
+    margin-left: 1rem !important;
+}
+
+.accordion-button {
+    display: block !important;
+}

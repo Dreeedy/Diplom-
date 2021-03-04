@@ -290,11 +290,6 @@ function success_marriage()
     clear_marriage();
 }
 
-function clear_marriage()
-{
-
-}
-
 function check_marriage($husbandId, $wifeId)
 {
     // заходим в таблицу книги и акты
@@ -332,8 +327,17 @@ function check_marriage($husbandId, $wifeId)
     }
 }
 
+function clear_marriage()
+{
+    $_SESSION['MARRIAGE']['HUSBAND']['id'] = NULL;
+    $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'] = NULL;//пол
+    $_SESSION['MARRIAGE']['HUSBAND']['husband_name'] = NULL;
+    $_SESSION['MARRIAGE']['HUSBAND']['husband_middleName'] = NULL;
 
+    $_SESSION['MARRIAGE']['WIFE']['id'] = 0;
+    $_SESSION['MARRIAGE']['WIFE']['wife_surname'] = NULL;
+    $_SESSION['MARRIAGE']['WIFE']['wife_name'] = NULL;
+    $_SESSION['MARRIAGE']['WIFE']['wife_middleName'] = NULL;
 
-
-
-
+    $_SESSION['MARRIAGE']['marriage_date'] = NULL;
+}

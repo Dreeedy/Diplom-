@@ -8,12 +8,8 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
 
-                    <a href="">
+                    <a href="../usersAndBookActs_show.php">
                         <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр</button>
-                    </a>
-
-                    <a href="">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Регистрация</button>
                     </a>
 
                 </div>
