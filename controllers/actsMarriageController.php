@@ -14,7 +14,7 @@ if (!R::testConnection())
 }
 /*02-Подключение к базе данных*/
 
-//var_dump($_POST);
+//myDump($_POST);
 marriage_register();
 
 /*
@@ -109,6 +109,8 @@ function fill_session($post)
     $_SESSION['MARRIAGE']['ERRORS'] = [];
 
     $_SESSION['MARRIAGE']['visually_hidden'] = false;
+
+    $_SESSION['MARRIAGE']['main_surname'] = $post['radio_main_surname'];
 }
 
 function data_validate()
@@ -233,6 +235,13 @@ function save_husband($husbandId, $wifeId, $staffId, $marriageActs)
     $usersAndBookActs->wife_id = $wifeId;
     $usersAndBookActs->active = true;
 
+    //меняю фамилию мужу или жене
+    if ($_SESSION['MARRIAGE']['main_surname'] == 'wife_surname')
+    {
+        //если жены, то меняем мужу фамилию на фамилию жены
+        $husband->surname = mb_substr($_SESSION['MARRIAGE']['WIFE']['wife_surname'], 0, -1);//отрезаю последнюю букву
+    }
+
     //пытаюсь сохранить все это счатье
     $marriageActs->ownUsersAndBookActsList[] = $usersAndBookActs;
     $husband->ownUsersAndBookActsList[] = $usersAndBookActs;
@@ -269,6 +278,13 @@ function save_wife($husbandId, $wifeId, $staffId, $marriageActs)
     $usersAndBookActs->husband_id = $husbandId;
     $usersAndBookActs->active = true;
 
+    //меняю фамилию мужу или жене
+    if ($_SESSION['MARRIAGE']['main_surname'] == 'husband_surname')
+    {
+        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
+        //myDump($wife);
+    }
+
     //пытаюсь сохранить все это счатье
     $marriageActs->ownUsersAndBookActsList[] = $usersAndBookActs;
     //$husband->ownUsersAndBookActsList[] = $usersAndBookActs;
@@ -292,14 +308,35 @@ function success_marriage()
 
 function check_marriage($husbandId, $wifeId)
 {
+    //поиск активных браков у мужа
+    $usersAndBookActsID_husband_active = R::findOne('usersandbookacts',
+        'actstypes_id = ? AND
+             customers_id = ? AND
+             active = ?', [1, $husbandId, true]);
+    if ($usersAndBookActsID_husband_active != NULL)
+    {
+        array_push($_SESSION['MARRIAGE']['ERRORS'], "Муж уже состоит в другом браке");
+        return false;
+    }
+
+    //поиск активных браков у жены
+    $usersAndBookActsID_wife_active = R::findOne('usersandbookacts',
+        'actstypes_id = ? AND
+             customers_id = ? AND
+             active = ?', [1, $wifeId, true]);
+    if ($usersAndBookActsID_wife_active != NULL)
+    {
+        array_push($_SESSION['MARRIAGE']['ERRORS'], "Жена уже состоит в другом браке");
+        return false;
+    }
+
     // заходим в таблицу книги и акты
 
     // ищем запись где тип записи заключение брака
     // ищем запись где customerID = husband ID; а wifeID = wifeID если такая есть
     // ищем запись где customerID = wife ID; а husbandID = HusbandID
 
-
-    //Поиск нужного пользователя
+    //Поиск нужного брака по пользователям
     $usersAndBookActsID_husband = R::findOne('usersandbookacts',
         'actstypes_id = ? AND
              customers_id = ? AND
@@ -319,8 +356,7 @@ function check_marriage($husbandId, $wifeId)
         //Если такой брак зарегистрирован, говорим что такой брак уже есть
         array_push($_SESSION['MARRIAGE']['ERRORS'], "Брак уже создан");
         return true;
-    }
-    else
+    } else
     {
         //если такой брак не зарегистрирован, то регаем
         return false;
