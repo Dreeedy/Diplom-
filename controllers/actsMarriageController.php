@@ -211,11 +211,6 @@ function check_customer($surname, $name, $middleName, $type)
 
 function save_husband($husbandId, $wifeId, $staffId, $marriageActs)
 {
-    //создаю таблицу браки
-    //$marriageActs = R::dispense('marriageacts');
-    //$marriageActs->date_issue = $_SESSION['MARRIAGE']['marriage_date'];
-    //R::store($marriage_acts);
-
     //подгружаю мужа
     $husband = R::load('customers', $husbandId);
 
@@ -254,11 +249,6 @@ function save_husband($husbandId, $wifeId, $staffId, $marriageActs)
 
 function save_wife($husbandId, $wifeId, $staffId, $marriageActs)
 {
-    //создаю таблицу браки
-    //$marriageActs = R::dispense('marriageacts');
-    //$marriageActs->date_issue = $_SESSION['MARRIAGE']['marriage_date'];
-    //R::store($marriage_acts);
-
     //подгружаю мужа
     $husband = R::load('customers', $husbandId);
 
@@ -308,28 +298,6 @@ function success_marriage()
 
 function check_marriage($husbandId, $wifeId)
 {
-    //поиск активных браков у мужа
-    $usersAndBookActsID_husband_active = R::findOne('usersandbookacts',
-        'actstypes_id = ? AND
-             customers_id = ? AND
-             active = ?', [1, $husbandId, true]);
-    if ($usersAndBookActsID_husband_active != NULL)
-    {
-        array_push($_SESSION['MARRIAGE']['ERRORS'], "Муж уже состоит в другом браке");
-        return false;
-    }
-
-    //поиск активных браков у жены
-    $usersAndBookActsID_wife_active = R::findOne('usersandbookacts',
-        'actstypes_id = ? AND
-             customers_id = ? AND
-             active = ?', [1, $wifeId, true]);
-    if ($usersAndBookActsID_wife_active != NULL)
-    {
-        array_push($_SESSION['MARRIAGE']['ERRORS'], "Жена уже состоит в другом браке");
-        return false;
-    }
-
     // заходим в таблицу книги и акты
 
     // ищем запись где тип записи заключение брака
