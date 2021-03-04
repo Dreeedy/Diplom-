@@ -43,6 +43,7 @@
                     <div class="col-12">
                         <select name="gender" class="form-select form-control" aria-label=".form-select-sm example">
                             <?php
+                            if ($_SESSION['REGISTER']['CUSTOMER']['gender'] == NULL) {$_SESSION['REGISTER']['CUSTOMER']['gender'] = "select_gender";}
                             //выбор гендера
                             if ($_SESSION['REGISTER']['CUSTOMER']['gender'] == "select_gender") {
                                 echo '<option selected value="select_gender">Укажите пол</option>';
