@@ -204,82 +204,6 @@ function check_customer($surname, $name, $middleName, $type)
     }
 }
 
-function save_husband($husbandId, $wifeId, $staffId, $marriageActs)
-{
-    //подгружаю мужа
-    $husband = R::load('customers', $husbandId);
-
-    //подгружаю жену
-    $wife = R::load('customers', $wifeId);
-
-    //погдружаю работника
-    $staff = R::load('staff', $staffId);
-
-    //погдружаю тип акта
-    $actType = R::load('actstypes', 1);//свидетельство о браке
-
-    //создаю таблицу пользотели и книги
-    $usersAndBookActs = R::dispense('usersandbookacts');
-    $usersAndBookActs->locality = 'адрес';
-    $usersAndBookActs->year = date('Y');
-    $usersAndBookActs->wife_id = $wifeId;
-    $usersAndBookActs->active = true;
-
-    //меняю фамилию мужу или жене
-    if ($_SESSION['MARRIAGE']['main_surname'] == 'wife_surname')
-    {
-        //если жены, то меняем мужу фамилию на фамилию жены
-        $husband->surname = mb_substr($_SESSION['MARRIAGE']['WIFE']['wife_surname'], 0, -1);//отрезаю последнюю букву
-    }
-
-    //пытаюсь сохранить все это счатье
-    $marriageActs->ownUsersAndBookActsList[] = $usersAndBookActs;
-    $husband->ownUsersAndBookActsList[] = $usersAndBookActs;
-    //$wife->ownUsersAndBookActsList[] = $usersAndBookActs;
-    $staff->ownUsersAndBookActsList[] = $usersAndBookActs;
-    $actType->ownUsersAndBookActsList[] = $usersAndBookActs;
-
-    R::storeAll([$marriageActs, $husband, $staff, $actType]);
-}
-
-function save_wife($husbandId, $wifeId, $staffId, $marriageActs)
-{
-    //подгружаю мужа
-    $husband = R::load('customers', $husbandId);
-
-    //подгружаю жену
-    $wife = R::load('customers', $wifeId);
-
-    //погдружаю работника
-    $staff = R::load('staff', $staffId);
-
-    //погдружаю тип акта
-    $actType = R::load('actstypes', 1);//свидетельство о браке
-
-    //создаю таблицу пользотели и книги
-    $usersAndBookActs = R::dispense('usersandbookacts');
-    $usersAndBookActs->locality = 'адрес';
-    $usersAndBookActs->year = date('Y');
-    $usersAndBookActs->husband_id = $husbandId;
-    $usersAndBookActs->active = true;
-
-    //меняю фамилию мужу или жене
-    if ($_SESSION['MARRIAGE']['main_surname'] == 'husband_surname')
-    {
-        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
-        //myDump($wife);
-    }
-
-    //пытаюсь сохранить все это счатье
-    $marriageActs->ownUsersAndBookActsList[] = $usersAndBookActs;
-    //$husband->ownUsersAndBookActsList[] = $usersAndBookActs;
-    $wife->ownUsersAndBookActsList[] = $usersAndBookActs;
-    $staff->ownUsersAndBookActsList[] = $usersAndBookActs;
-    $actType->ownUsersAndBookActsList[] = $usersAndBookActs;
-
-    R::storeAll([$marriageActs, $wife, $staff, $actType]);
-}
-
 function success_marriage()
 {
     array_push($_SESSION['MARRIAGE']['SUCCESS'], 'Брак успешно создан.');
@@ -344,8 +268,21 @@ function save_marriage($husbandId, $wifeId, $staffId)
     //загружаю мужа
     $husband = R::load('customers', $husbandId);
 
+    //меняю фамилию мужу или жене
+    if ($_SESSION['MARRIAGE']['main_surname'] == 'wife_surname')
+    {
+        //если жены, то меняем мужу фамилию на фамилию жены
+        $husband->surname = mb_substr($_SESSION['MARRIAGE']['WIFE']['wife_surname'], 0, -1);//отрезаю последнюю букву
+    }
+
     //загружаю жену
     $wife = R::load('customers', $wifeId);
+
+    //меняю фамилию мужу или жене
+    if ($_SESSION['MARRIAGE']['main_surname'] == 'husband_surname')
+    {
+        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
+    }
 
     //погдружаю работника
     $staff = R::load('staff', $staffId);
@@ -379,13 +316,6 @@ function save_marriage($husbandId, $wifeId, $staffId)
 
     //сохраняю usersandbookacts
     R::store($usersAndBookActs);
-
-    //меняю фамилию мужу или жене
-    if ($_SESSION['MARRIAGE']['main_surname'] == 'husband_surname')
-    {
-        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
-        //myDump($wife);
-    }
 }
 
 function clear_marriage()
