@@ -130,10 +130,10 @@
                     <!-- 01 - дата и радио - Open -->
                     <div class="col-12 mb-2 mt-0 row">
                         <div class="col-auto"><!--дата заключения брака-->
-                            <label for="marriage_date" class="visually-hidden">Дата заключения брака</label>
-                            <input type="date" class="form-control" id="marriage_date" name="marriage_date"
+                            <label for="date_marriage" class="visually-hidden">Дата заключения брака</label>
+                            <input type="date" class="form-control" id="date_marriage" name="date_marriage"
                                    placeholder="Дата заключения брака 0000 00 00"
-                                   value="<?php echo $_SESSION['MARRIAGE']['marriage_date'] ?>" required="">
+                                   value="<?php echo $_SESSION['MARRIAGE']['date_marriage'] ?>" required="">
                         </div>
                         <div class="form-check col-auto">
                             <input class="form-check-input" type="radio" name="radio_main_surname" id="flexRadioDefault2"

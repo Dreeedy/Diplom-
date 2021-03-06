@@ -57,12 +57,8 @@ function marriage_register()
         if ($checkHusband == true && $checkWife == true && $checkMarriage == false)
         {
             //если и муж и жена зареганы, то уже делаем сохранение в базе
-            //создаю таблицу браки
-            $marriageActs = R::dispense('marriageacts');
-            $marriageActs->date_issue = $_SESSION['MARRIAGE']['marriage_date'];
-            //R::store($marriage_acts);
-            save_husband($_SESSION['MARRIAGE']['HUSBAND']['id'], $_SESSION['MARRIAGE']['WIFE']['id'], $_SESSION['staff_id'], $marriageActs);
-            save_wife($_SESSION['MARRIAGE']['HUSBAND']['id'], $_SESSION['MARRIAGE']['WIFE']['id'], $_SESSION['staff_id'], $marriageActs);
+            save_marriage($_SESSION['MARRIAGE']['HUSBAND']['id'], $_SESSION['MARRIAGE']['WIFE']['id'], $_SESSION['staff_id']);
+
             success_marriage();
             header('location: ../acts_marriage_create.php');
         } else//если кого то из пользователй не нашли
@@ -101,7 +97,7 @@ function fill_session($post)
     $_SESSION['MARRIAGE']['WIFE']['SUCCESS'] = [];
     $_SESSION['MARRIAGE']['WIFE']['visually_hidden'] = false;
 
-    $_SESSION['MARRIAGE']['marriage_date'] = $post['marriage_date'];//роль клиента
+    $_SESSION['MARRIAGE']['date_marriage'] = $post['date_marriage'];//роль клиента
 
     $_SESSION['MARRIAGE']['reg'] = false;//зареган ли брак
 
@@ -179,7 +175,6 @@ function check_customer($surname, $name, $middleName, $type)
             $surname,
             $name,
             $middleName,]);
-
 
     if ($type == 0)
     {
@@ -298,36 +293,98 @@ function success_marriage()
 
 function check_marriage($husbandId, $wifeId)
 {
-    // заходим в таблицу книги и акты
+    $husband = R::load('customers', $husbandId);
+    $husbandMarriageList = $husband->alias('husband')->ownMarriageactsList;
 
-    // ищем запись где тип записи заключение брака
-    // ищем запись где customerID = husband ID; а wifeID = wifeID если такая есть
-    // ищем запись где customerID = wife ID; а husbandID = HusbandID
+    $wife = R::load('customers', $wifeId);
+    $wifeMarriageList = $wife->alias('wife')->ownMarriageactsList;
 
-    //Поиск нужного брака по пользователям
-    $usersAndBookActsID_husband = R::findOne('usersandbookacts',
-        'actstypes_id = ? AND
-             customers_id = ? AND
-             wife_id = ? AND
-             year = ? AND
-             active = ?', [1, $husbandId, $wifeId, $_SESSION['MARRIAGE']['marriage_date'], true]);
-
-    $usersAndBookActsID_wife = R::findOne('usersandbookacts',
-        'actstypes_id = ? AND
-             customers_id = ? AND
-             husband_id = ? AND
-             year = ? AND
-             active = ?', [1, $wifeId, $husbandId, $_SESSION['MARRIAGE']['marriage_date'], true]);
-
-    if ($usersAndBookActsID_husband != NULL && $usersAndBookActsID_wife != NULL)
+    if (!empty($husbandMarriageList))
     {
-        //Если такой брак зарегистрирован, говорим что такой брак уже есть
-        array_push($_SESSION['MARRIAGE']['ERRORS'], "Брак уже создан");
-        return true;
-    } else
+        foreach ($husbandMarriageList as $hm)
+        {
+            if ($hm->is_active)
+            {
+                if ($hm->wife_id != $wifeId)
+                {
+                    //муж состоит в другом браке
+                    array_push($_SESSION['MARRIAGE']['HUSBAND']['ERRORS'], 'Муж состоит в другом браке');
+                    return  true;
+                }elseif ($hm->wife_id == $wifeId)
+                {
+                    //муж состоит в другом браке
+                    array_push($_SESSION['MARRIAGE']['ERRORS'], 'Брак уже зарегистрирован');
+                    return true;
+                }
+            }
+        }
+    }
+
+    if (!empty($wifeMarriageList))
     {
-        //если такой брак не зарегистрирован, то регаем
-        return false;
+        foreach ($wifeMarriageList as $wm)
+        {
+            if ($wm->is_active)
+            {
+                if ($wm->husband_id != $husbandId)
+                {
+                    //жена состоит в другом браке
+                    array_push($_SESSION['MARRIAGE']['WIFE']['ERRORS'], 'Жена состоит в другом браке');
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+function save_marriage($husbandId, $wifeId, $staffId)
+{
+    //загружаю мужа
+    $husband = R::load('customers', $husbandId);
+
+    //загружаю жену
+    $wife = R::load('customers', $wifeId);
+
+    //погдружаю работника
+    $staff = R::load('staff', $staffId);
+
+    //погдружаю тип акта
+    $actType = R::load('actstypes', 1);//свидетельство о браке
+
+    //создаю таблицу браки
+    $marriageActs = R::dispense('marriageacts');
+    $marriageActs->date_marriage = $_SESSION['MARRIAGE']['date_marriage'];
+    $marriageActs->date_divorce = NULL;
+    $marriageActs->is_active = true;
+
+    $marriageActs->staff = $staff;
+    $marriageActs->husband = $husband;
+    $marriageActs->wife = $wife;
+
+    //создаю таблицу пользотели и книги
+    $usersAndBookActs = R::dispense('usersandbookacts');
+    $usersAndBookActs->locality = NULL;
+    $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->act_types = $actType;
+
+    $usersAndBookActs->marriage_acts = $marriageActs;
+    $usersAndBookActs->birth_acts = NULL;
+    $usersAndBookActs->death_acts = NULL;
+    $usersAndBookActs->adoption_acts = NULL;
+
+    //сохраняю marriageacts
+    R::store($marriageActs);
+
+    //сохраняю usersandbookacts
+    R::store($usersAndBookActs);
+
+    //меняю фамилию мужу или жене
+    if ($_SESSION['MARRIAGE']['main_surname'] == 'husband_surname')
+    {
+        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
+        //myDump($wife);
     }
 }
 
@@ -343,5 +400,5 @@ function clear_marriage()
     $_SESSION['MARRIAGE']['WIFE']['wife_name'] = NULL;
     $_SESSION['MARRIAGE']['WIFE']['wife_middleName'] = NULL;
 
-    $_SESSION['MARRIAGE']['marriage_date'] = NULL;
+    $_SESSION['MARRIAGE']['date_marriage'] = NULL;
 }
