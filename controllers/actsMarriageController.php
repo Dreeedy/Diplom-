@@ -14,16 +14,14 @@ if (!R::testConnection())
 }
 /*02-Подключение к базе данных*/
 
-//myDump($_POST);
+if ($_POST['post_selector'] == 'post_divorce')
+{
+    marriage_divorce();
+}
+
 marriage_register();
 
-/*
- * ищу в базе мужа
- * ищу в базе жену
- * если оба есть
- * то добавляем записи в книгу записей и книгу браков
- * */
-
+/* 01 - Create - Open */
 function marriage_register()
 {
     $point_one = false;
@@ -160,9 +158,6 @@ function data_validate()
     /* ДОПУСТИМ ТУТ БУДЕТ ВАЛИДАЦИЯ ДАТЫ  */
 }
 
-/*
- * Ищет в бд такого человека. return True если есть
- * */
 function check_customer($surname, $name, $middleName, $type)
 {
     //$type это муж или жена, чтобы правильно ошибки распределить 0 - муж 1 - жена
@@ -202,25 +197,6 @@ function check_customer($surname, $name, $middleName, $type)
             return false;
         }
     }
-}
-
-function success_marriage()
-{
-    $husband_surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
-    $husband_name =  $_SESSION['MARRIAGE']['HUSBAND']['husband_name'];
-    $husband_middleName = $_SESSION['MARRIAGE']['HUSBAND']['husband_middleName'];
-
-    $wife_surname = $_SESSION['MARRIAGE']['WIFE']['wife_surname'];
-    $wife_name = $_SESSION['MARRIAGE']['WIFE']['wife_name'];
-    $wife_middleName = $_SESSION['MARRIAGE']['WIFE']['wife_middleName'];
-
-    array_push($_SESSION['MARRIAGE']['SUCCESS'], 'Брак между'.' '.$husband_surname.' '.$husband_name.' '.$husband_middleName.' и '.$wife_surname.' '.$wife_name.' '.$wife_middleName.' '.'успешно зарегистрирован.');
-
-    $_SESSION['MARRIAGE']['visually_hidden'] == true;
-
-    $_SESSION['MARRIAGE']['reg'] = true;
-
-    clear_marriage();
 }
 
 function check_marriage($husbandId, $wifeId)
@@ -326,6 +302,25 @@ function save_marriage($husbandId, $wifeId, $staffId)
     R::store($usersAndBookActs);
 }
 
+function success_marriage()
+{
+    $husband_surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
+    $husband_name =  $_SESSION['MARRIAGE']['HUSBAND']['husband_name'];
+    $husband_middleName = $_SESSION['MARRIAGE']['HUSBAND']['husband_middleName'];
+
+    $wife_surname = $_SESSION['MARRIAGE']['WIFE']['wife_surname'];
+    $wife_name = $_SESSION['MARRIAGE']['WIFE']['wife_name'];
+    $wife_middleName = $_SESSION['MARRIAGE']['WIFE']['wife_middleName'];
+
+    array_push($_SESSION['MARRIAGE']['SUCCESS'], 'Брак между'.' '.$husband_surname.' '.$husband_name.' '.$husband_middleName.' и '.$wife_surname.' '.$wife_name.' '.$wife_middleName.' '.'успешно зарегистрирован.');
+
+    $_SESSION['MARRIAGE']['visually_hidden'] == true;
+
+    $_SESSION['MARRIAGE']['reg'] = true;
+
+    clear_marriage();
+}
+
 function clear_marriage()
 {
     $_SESSION['MARRIAGE']['HUSBAND']['id'] = NULL;
@@ -340,3 +335,45 @@ function clear_marriage()
 
     $_SESSION['MARRIAGE']['date_marriage'] = NULL;
 }
+/* 02 - Create - Close */
+
+/* 01 - Divorce - Open */
+function marriage_divorce()
+{
+    fill_session_divorce($_POST);
+    data_validate_divorce();
+}
+
+function fill_session_divorce($post)
+{
+    $_SESSION['DIVORCE']['spouse_surname'] = $post['spouse_surname'];
+    $_SESSION['DIVORCE']['spouse_name'] = $post['spouse_name'];
+    $_SESSION['DIVORCE']['spouse_middleName'] = $post['spouse_middleName'];
+
+    $_SESSION['DIVORCE']['ERRORS'] = [];
+    $_SESSION['DIVORCE']['SUCCESS'] = [];
+
+    $_SESSION['DIVORCE']['is_divorced'] = false;
+}
+
+function data_validate_divorce()
+{
+    if (preg_match('/[^,\p{Cyrillic}]/ui', $_SESSION['DIVORCE']['spouse_surname']))
+    {
+        //если не проходит проверку
+        array_push($_SESSION['DIVORCE']['ERRORS'], "Фамилия может содержать только кириллицу");
+    }
+
+    if (preg_match('/[^,\p{Cyrillic}]/ui', $_SESSION['DIVORCE']['spouse_name']))
+    {
+        //если не проходит проверку
+        array_push($_SESSION['DIVORCE']['ERRORS'], "Имя может содержать только кириллицу");
+    }
+
+    if (preg_match('/[^,\p{Cyrillic}]/ui', $_SESSION['DIVORCE']['spouse_middleName']))
+    {
+        //если содержит не только кириллицу
+        array_push($_SESSION['DIVORCE']['ERRORS'], "Отчество может содержать только кириллицу");
+    }
+}
+/* 02 - Divorce - Open */

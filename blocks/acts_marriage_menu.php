@@ -16,6 +16,10 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">Регистрация</button>
                     </a>
 
+                    <a href="../acts_marriage_divorce.php">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Расторжение</button>
+                    </a>
+
                 </div>
             </div>
         </div>
