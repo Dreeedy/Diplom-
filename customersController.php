@@ -47,6 +47,7 @@ function fill_session($post)
     $_SESSION['REGISTER']['CUSTOMER']['surname'] = $post['surname'];
     $_SESSION['REGISTER']['CUSTOMER']['name'] = $post['name'];
     $_SESSION['REGISTER']['CUSTOMER']['middleName'] = $post['middleName'];
+    $_SESSION['REGISTER']['CUSTOMER']['dateBirth'] = $post['dateBirth'];
     $_SESSION['REGISTER']['CUSTOMER']['address'] = $post['address'];
     $_SESSION['REGISTER']['CUSTOMER']['phoneNumber'] = $post['phoneNumber'];
     $_SESSION['REGISTER']['CUSTOMER']['role_id'] = '1';//роль клиента
@@ -90,6 +91,8 @@ function data_validate()
         //если не проходит проверку
         array_push($_SESSION['REGISTER']['CUSTOMER']['ERRORS'], "Номер телефона должен состоять только из цифр");
     }
+
+    //возможно проверка на дату рождения
 }
 
 function find_user()
@@ -99,11 +102,13 @@ function find_user()
         'roles_id = ? AND
              surname = ? AND
              name = ? AND
-             middle_name = ?', [
+             middle_name = ? AND
+             dateBirth = ?', [
              $_SESSION['REGISTER']['CUSTOMER']['role_id'],
              $_SESSION['REGISTER']['CUSTOMER']['surname'],
              $_SESSION['REGISTER']['CUSTOMER']['name'],
-             $_SESSION['REGISTER']['CUSTOMER']['middleName']]);
+             $_SESSION['REGISTER']['CUSTOMER']['middleName'],
+             $_SESSION['REGISTER']['CUSTOMER']['dateBirth']]);
 
     if ($customer_id != NULL)
     {
@@ -126,6 +131,7 @@ function register_customer()
     $customer->surname      = $_SESSION['REGISTER']['CUSTOMER']['surname'];
     $customer->name         = $_SESSION['REGISTER']['CUSTOMER']['name'];
     $customer->middleName   = $_SESSION['REGISTER']['CUSTOMER']['middleName'];
+    $customer->dateBirth    = $_SESSION['REGISTER']['CUSTOMER']['dateBirth'];
     $customer->address      = $_SESSION['REGISTER']['CUSTOMER']['address'];
     $customer->phoneNumber  = $_SESSION['REGISTER']['CUSTOMER']['phoneNumber'];
 
@@ -153,4 +159,5 @@ function clear_user()
     $_SESSION['REGISTER']['CUSTOMER']['middleName'] = '';
     $_SESSION['REGISTER']['CUSTOMER']['address'] = '';
     $_SESSION['REGISTER']['CUSTOMER']['phoneNumber'] = '';
+    $_SESSION['REGISTER']['CUSTOMER']['dateBirth'] = NULL;
 }

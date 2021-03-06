@@ -30,6 +30,7 @@
                     <a href="">
                         <button class="w-100 btn btn-md btn-primary text-start">Добавить акт о смерти</button>
                     </a>
+                    </a>
                 </div>
             </div>
 
@@ -81,6 +82,12 @@
                         <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Отчество"
                                value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['middleName'] ?>" minlength="2"
                                maxlength="33"
+                               required="">
+                    </div>
+                    <div class="col-12">
+                        <label for="dateBirth" class="">Дата рождения</label>
+                        <input type="date" class="form-control" id="dateBirth" name="dateBirth" placeholder="Дата рождения: 0000 00 00"
+                               value="<?php echo $_SESSION['REGISTER']['CUSTOMER']['dateBirth'] ?>"
                                required="">
                     </div>
                     <div class="col-12">
