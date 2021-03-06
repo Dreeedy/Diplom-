@@ -206,7 +206,15 @@ function check_customer($surname, $name, $middleName, $type)
 
 function success_marriage()
 {
-    array_push($_SESSION['MARRIAGE']['SUCCESS'], 'Брак успешно создан.');
+    $husband_surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
+    $husband_name =  $_SESSION['MARRIAGE']['HUSBAND']['husband_name'];
+    $husband_middleName = $_SESSION['MARRIAGE']['HUSBAND']['husband_middleName'];
+
+    $wife_surname = $_SESSION['MARRIAGE']['WIFE']['wife_surname'];
+    $wife_name = $_SESSION['MARRIAGE']['WIFE']['wife_name'];
+    $wife_middleName = $_SESSION['MARRIAGE']['WIFE']['wife_middleName'];
+
+    array_push($_SESSION['MARRIAGE']['SUCCESS'], 'Брак между'.' '.$husband_surname.' '.$husband_name.' '.$husband_middleName.' и '.$wife_surname.' '.$wife_name.' '.$wife_middleName.' '.'успешно зарегистрирован.');
 
     $_SESSION['MARRIAGE']['visually_hidden'] == true;
 
