@@ -79,6 +79,7 @@
                             {
                                 echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
                             }
+                            $_SESSION['MARRIAGE']['HUSBAND']['ERRORS'] = [];
                         }
                         ?>
                     </div><!--ошибки-->
@@ -122,6 +123,7 @@
                             {
                                 echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
                             }
+                            $_SESSION['MARRIAGE']['WIFE']['ERRORS'] = [];
                         }
                         ?>
                     </div><!--ошибки-->
@@ -160,6 +162,7 @@
                             {
                                 echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
                             }
+                            $_SESSION['MARRIAGE']['ERRORS'] = [];
                         }
 
                         //вывод успешный действий
@@ -171,7 +174,7 @@
                                     echo '<div class="alert alert alert-success mb-1 p-1 text-center" role="alert">' . $success . '</div>';
                                 }
                             }
-
+                            $_SESSION['MARRIAGE']['SUCCESS'] = [];
                             $_SESSION['MARRIAGE']['reg'] = false;
                         }
                         ?>

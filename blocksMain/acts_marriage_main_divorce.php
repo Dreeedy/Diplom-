@@ -91,6 +91,7 @@
                             {
                                 echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
                             }
+                            $_SESSION['DIVORCE']['ERRORS'] = [];
                         }
 
                         //вывод успешный действий
@@ -101,7 +102,7 @@
                             {
                                 echo '<div class="alert alert alert-success mb-1 p-1 text-center" role="alert">' . $success . '</div>';
                             }
-
+                            $_SESSION['DIVORCE']['SUCCESS'] = [];
                             $_SESSION['DIVORCE']['is_divorced'] = false;
                         }
                         ?>
@@ -163,33 +164,6 @@
                                value="<?php echo $_SESSION['DIVORCE']['date_divorce'] ?>" required="">
                     </div>
                     <!-- 02 - Супруг - Close -->
-
-                    <!-- 01 - Сообщения - Open -->
-                    <div class="col-12 my-1">
-                        <?
-                        //вывод ошибок
-                        if ($_SESSION['DIVORCE']['is_divorced'] == false & !empty($_SESSION['DIVORCE']['ERRORS']))
-                        {
-                            foreach ($_SESSION['DIVORCE']['ERRORS'] as $error)
-                            {
-                                echo '<div class="alert alert-danger mb-1 p-1 text-center" role="alert">' . $error . '</div>';
-                            }
-                        }
-
-                        //вывод успешный действий
-                        if ($_SESSION['DIVORCE']['is_divorced'] == false /*true*/ & !empty($_SESSION['DIVORCE']['SUCCESS']))
-                        {
-
-                            foreach ($_SESSION['DIVORCE']['SUCCESS'] as $success)
-                            {
-                                echo '<div class="alert alert alert-success mb-1 p-1 text-center" role="alert">' . $success . '</div>';
-                            }
-
-                            $_SESSION['DIVORCE']['is_divorced'] = false;
-                        }
-                        ?>
-                    </div>
-                    <!-- 02 - Сообщения - Close -->
 
                 </div>
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Расторгнуть</button>

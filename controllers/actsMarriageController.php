@@ -357,6 +357,8 @@ function marriage_divorce()
         R::store($marriage);
 
         array_push($_SESSION['DIVORCE']['SUCCESS'], 'Брак успешно расторгнут');
+
+        session_divorce_clear();
         // + дата расторжения
     }
 
@@ -467,5 +469,13 @@ function check_marriage_divorce($customer_id)
         array_push($_SESSION['DIVORCE']['ERRORS'], 'Гражданин(ка) не состоит в браке или он не зарегистрирован');
     }
     return $marriage;
+}
+
+function session_divorce_clear()
+{
+    $_SESSION['DIVORCE']['spouse_surname'] = '';
+    $_SESSION['DIVORCE']['spouse_name'] = '';
+    $_SESSION['DIVORCE']['spouse_middleName'] = '';
+    $_SESSION['DIVORCE']['date_divorce'] = '';
 }
 /* 02 - Divorce - Open */
