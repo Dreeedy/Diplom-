@@ -135,6 +135,8 @@ function register_customer()
     $customer->address      = $_SESSION['REGISTER']['CUSTOMER']['address'];
     $customer->phoneNumber  = $_SESSION['REGISTER']['CUSTOMER']['phoneNumber'];
 
+    $customer->main_surname  = $_SESSION['REGISTER']['CUSTOMER']['surname'];;
+
     $role->ownCustomersList[] = $customer;
     R::store($role);
 

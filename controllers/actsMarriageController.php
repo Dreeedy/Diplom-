@@ -280,7 +280,7 @@ function save_marriage($husbandId, $wifeId, $staffId)
     //создаю таблицу браки
     $marriageActs = R::dispense('marriageacts');
     $marriageActs->date_marriage = $_SESSION['MARRIAGE']['date_marriage'];
-    $marriageActs->date_divorce = NULL;
+    //$marriageActs->date_divorce = NULL;
     $marriageActs->is_active = true;
 
     $marriageActs->staff = $staff;
@@ -293,6 +293,7 @@ function save_marriage($husbandId, $wifeId, $staffId)
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
+    $usersAndBookActs->divorce_acts = NULL;
     $usersAndBookActs->marriage_acts = $marriageActs;
     $usersAndBookActs->birth_acts = NULL;
     $usersAndBookActs->death_acts = NULL;
@@ -348,18 +349,11 @@ function marriage_divorce()
     $customer_id = check_customer_divorce();
     $marriage = check_marriage_divorce($customer_id);
 
-    if ($marriage != NULL && $_POST['is_divorce'] == 'is_divorce_true')
+    if ($marriage != NULL && $_POST['is_divorce'] == 'is_divorce_true')//если нажал на кнопку разрыва брака
     {
-        //active -> false
-        $marriage->is_active = false;
-        $marriage->date_divorce = $_SESSION['DIVORCE']['date_divorce'];
-
-        R::store($marriage);
-
-        array_push($_SESSION['DIVORCE']['SUCCESS'], 'Брак успешно расторгнут');
+        save_marriage_divorce($marriage);
 
         session_divorce_clear();
-        // + дата расторжения
     }
 
     header('location: ../acts_marriage_divorce.php');
@@ -412,7 +406,7 @@ function check_customer_divorce()
 
     if ($customer_id == NUll)
     {
-        array_push($_SESSION['DIVORCE']['ERRORS'], "Клиент не зарегистрирован. Сначала зарегистрируйте его.");
+        //array_push($_SESSION['DIVORCE']['ERRORS'], "Клиент не зарегистрирован. Сначала зарегистрируйте его.");
     }
     return $customer_id;
 }
@@ -469,6 +463,48 @@ function check_marriage_divorce($customer_id)
         array_push($_SESSION['DIVORCE']['ERRORS'], 'Гражданин(ка) не состоит в браке или он не зарегистрирован');
     }
     return $marriage;
+}
+
+function save_marriage_divorce($marriage)
+{
+    $marriage->is_active = false;
+
+    $husband = R::load('customers', $marriage->husband_id);
+    $husband->surname = $husband->main_surname;
+
+    $wife = R::load('customers', $marriage->wife_id);
+    $wife->surname = $wife->main_surname;
+
+    $staff = R::load('staff', $_SESSION['staff_id']);
+
+    $actType = R::load('actstypes', 5);//свидетельство о расторжении брака
+
+    $divorceActs = R::dispense('divorceacts');
+    $divorceActs->date_divorce = $_SESSION['DIVORCE']['date_divorce'];
+
+    $divorceActs->staff = $staff;
+    $divorceActs->husband = $husband;
+    $divorceActs->wife = $wife;
+
+    //создаю таблицу пользотели и книги
+    $usersAndBookActs = R::dispense('usersandbookacts');
+    $usersAndBookActs->locality = NULL;
+    $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->act_types = $actType;
+
+    $usersAndBookActs->divorce_acts = $divorceActs;
+    $usersAndBookActs->marriage_acts = NULL;
+    $usersAndBookActs->birth_acts = NULL;
+    $usersAndBookActs->death_acts = NULL;
+    $usersAndBookActs->adoption_acts = NULL;
+
+    R::store($marriage);
+
+    R::store($divorceActs);
+
+    R::store($usersAndBookActs);
+
+    array_push($_SESSION['DIVORCE']['SUCCESS'], 'Брак успешно расторгнут');
 }
 
 function session_divorce_clear()
