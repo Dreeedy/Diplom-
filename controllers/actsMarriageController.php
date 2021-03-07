@@ -14,9 +14,12 @@ if (!R::testConnection())
 }
 /*02-Подключение к базе данных*/
 
-if ($_POST['post_selector'] == 'post_divorce')
+//myDump($_POST);
+if ($_POST['post_selector'] === 'post_divorce')
 {
+    //myDump($_POST);
     marriage_divorce();
+    exit;
 }
 
 marriage_register();
@@ -342,6 +345,22 @@ function marriage_divorce()
 {
     fill_session_divorce($_POST);
     data_validate_divorce();
+    $customer_id = check_customer_divorce();
+    $marriage = check_marriage_divorce($customer_id);
+
+    if ($marriage != NULL && $_POST['is_divorce'] == 'is_divorce_true')
+    {
+        //active -> false
+        $marriage->is_active = false;
+        $marriage->date_divorce = $_SESSION['DIVORCE']['date_divorce'];
+
+        R::store($marriage);
+
+        array_push($_SESSION['DIVORCE']['SUCCESS'], 'Брак успешно расторгнут');
+        // + дата расторжения
+    }
+
+    header('location: ../acts_marriage_divorce.php');
 }
 
 function fill_session_divorce($post)
@@ -349,6 +368,7 @@ function fill_session_divorce($post)
     $_SESSION['DIVORCE']['spouse_surname'] = $post['spouse_surname'];
     $_SESSION['DIVORCE']['spouse_name'] = $post['spouse_name'];
     $_SESSION['DIVORCE']['spouse_middleName'] = $post['spouse_middleName'];
+    $_SESSION['DIVORCE']['date_divorce'] = $post['date_divorce'];
 
     $_SESSION['DIVORCE']['ERRORS'] = [];
     $_SESSION['DIVORCE']['SUCCESS'] = [];
@@ -375,5 +395,77 @@ function data_validate_divorce()
         //если содержит не только кириллицу
         array_push($_SESSION['DIVORCE']['ERRORS'], "Отчество может содержать только кириллицу");
     }
+}
+
+function check_customer_divorce()
+{
+    //Поиск нужного пользователя
+    $customer_id = R::findOne('customers',
+        'surname = ? AND
+             name = ? AND
+             middle_name = ?', [
+            $_SESSION['DIVORCE']['spouse_surname'],
+            $_SESSION['DIVORCE']['spouse_name'],
+            $_SESSION['DIVORCE']['spouse_middleName'],]);
+
+    if ($customer_id == NUll)
+    {
+        array_push($_SESSION['DIVORCE']['ERRORS'], "Клиент не зарегистрирован. Сначала зарегистрируйте его.");
+    }
+    return $customer_id;
+}
+
+function check_marriage_divorce($customer_id)
+{
+    $customer = R::load('customers', $customer_id);
+    $alias = '';
+    if ($customer->gender == 'Мужчина')
+    {
+        $alias = 'husband';
+    }
+    elseif ($customer->gender == 'Женщина')
+    {
+        $alias = 'wife';
+    }
+
+    $spouse = NULL;
+    $marriage = NULL;
+
+    $customerMarriageList = $customer->alias($alias)->ownMarriageactsList;
+    if (!empty($customerMarriageList))
+    {
+        foreach ($customerMarriageList as $cm)
+        {
+            if ($cm->is_active)
+            {
+                //вытянуть данные мужа или жены
+                if ($customer->gender == 'Мужчина')
+                {
+                    $spouse = $cm->fetchAs('customers')->wife;//находит жену
+                    $marriage = $cm;
+                    break;
+                }
+                elseif($customer->gender == 'Женщина')
+                {
+                    $spouse = $cm->fetchAs('customers')->husband;//находит мужа
+                    $marriage = $cm;
+                    break;
+                }
+                break;
+            }
+        }
+        if ($marriage == NULL)
+        {
+            array_push($_SESSION['DIVORCE']['ERRORS'], 'Гражданин(ка) не состоит в браке или он не зарегистрирован');
+        }
+        if ($spouse != NULL)
+        {
+            array_push($_SESSION['DIVORCE']['SUCCESS'], 'Гражданин(ка) состоит в браке с '.$spouse->surname.' '.$spouse->name.' '.$spouse->middle_name);
+            return $marriage;
+        }
+    }else{
+        array_push($_SESSION['DIVORCE']['ERRORS'], 'Гражданин(ка) не состоит в браке или он не зарегистрирован');
+    }
+    return $marriage;
 }
 /* 02 - Divorce - Open */
