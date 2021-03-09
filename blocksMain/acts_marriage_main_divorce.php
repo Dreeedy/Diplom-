@@ -74,7 +74,7 @@
                                required="">
                     </div>
                     <div class="col-auto"><!--дата заключения брака-->
-                        <label for="date_divorce" class="visually-hidden">Дата расторжения брака</label>
+                        <label for="date_divorce" class="">Дата расторжения брака</label>
                         <input type="date" class="form-control" id="date_divorce" name="date_divorce"
                                placeholder="Дата расторжения брака 0000 00 00"
                                value="<?php echo $_SESSION['DIVORCE']['date_divorce'] ?>" required="">
