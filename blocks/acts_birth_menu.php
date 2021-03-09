@@ -12,7 +12,7 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр</button>
                     </a>
 
-                    <a href="">
+                    <a href="../acts_birth_create.php">
                         <button type="button" class="btn btn-sm btn-outline-secondary">Регистрация</button>
                     </a>
 
