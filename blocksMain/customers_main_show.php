@@ -26,6 +26,11 @@
                 <button class="w-100 btn btn-md btn-primary text-start">Добавить акт о бракосочетании</button>
             </a>
         </div>
+        <div class="col">
+            <a href="">
+                <button class="w-100 btn btn-md btn-primary text-start">Подробная информация</button>
+            </a>
+        </div>
     </div>
 <!--02 Горизонтальное меню-->
 <!--01 Кусок таблицы-->
