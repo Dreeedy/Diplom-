@@ -21,7 +21,7 @@ if ($_POST['do_edit'] == "true")
 else
 {
     $_SESSION['EDIT']['CUSTOMER']['customerId'] = $_POST['customerId'];
-    fill_session($_POST);//поместили данные в сесиию. дальше работа с ней
+    fill_session_edit();
     $_POST = null;
     header('location: ../customers_edit.php');
 }
@@ -77,6 +77,36 @@ function fill_session($post)
     $_SESSION['EDIT']['CUSTOMER']['ERRORS'] = [];
     $_SESSION['EDIT']['CUSTOMER']['SUCCESS'] = [];
     $_SESSION['EDIT']['CUSTOMER']['reg'] = false;
+}
+
+function fill_session_edit()
+{
+    $customer = R::Load('customers', $_SESSION['EDIT']['CUSTOMER']['customerId']);
+    if ($customer != null)
+    {
+        $_SESSION['EDIT']['CUSTOMER']['surname'] = $customer->surname;
+        $_SESSION['EDIT']['CUSTOMER']['name'] = $customer->name;
+        $_SESSION['EDIT']['CUSTOMER']['middleName'] = $customer->middle_name;
+
+        $_SESSION['EDIT']['CUSTOMER']['dateBirth'] = $customer->date_birth;
+        $_SESSION['EDIT']['CUSTOMER']['address'] = $customer->address;
+        $_SESSION['EDIT']['CUSTOMER']['phoneNumber'] = $customer->phone_number;
+
+        if ($customer->gender == "Женщина")
+        {
+            $_SESSION['EDIT']['CUSTOMER']['gender'] = 'female';
+        }
+        if ($customer->gender == "Мужчина")
+        {
+            $_SESSION['EDIT']['CUSTOMER']['gender'] = 'male';
+        }
+
+        $_SESSION['EDIT']['CUSTOMER']['role_id'] = '1';//роль клиента
+        $_SESSION['EDIT']['CUSTOMER']['role_name'] = 'Клиент';
+        $_SESSION['EDIT']['CUSTOMER']['ERRORS'] = [];
+        $_SESSION['EDIT']['CUSTOMER']['SUCCESS'] = [];
+        $_SESSION['EDIT']['CUSTOMER']['reg'] = false;
+    }
 }
 
 function data_validate()
@@ -204,6 +234,15 @@ function register_customer()
             $_SESSION['EDIT']['CUSTOMER']['name'].' '.
             $_SESSION['EDIT']['CUSTOMER']['middleName'].' '.
             "успешно обновлены");
+
+        if ($_SESSION['EDIT']['CUSTOMER']['gender'] == "Женщина")
+        {
+            $_SESSION['EDIT']['CUSTOMER']['gender'] = 'female';
+        }
+        if ($_SESSION['EDIT']['CUSTOMER']['gender'] == "Мужчина")
+        {
+            $_SESSION['EDIT']['CUSTOMER']['gender'] = 'male';
+        }
 
         //clear_user();
     }

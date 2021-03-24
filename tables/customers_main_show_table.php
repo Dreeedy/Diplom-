@@ -56,16 +56,6 @@ $customers_arr = R::findall('customers');
         <td>
         <form method="POST" action="../controllers/customersEditController.php">
             <input type="hidden" name="customerId" value='.$customer->id.'>
-            
-            <input type="hidden" name="surname" value='.$customer->surname.'>
-            <input type="hidden" name="name" value='.$customer->name.'>
-            <input type="hidden" name="middleName" value='.$customer->middle_name.'>
-            
-            <input type="hidden" name="dateBirth" value='.$customer->date_birth.'>            
-            <input type="hidden" name="address" value='.$customer->address.'>
-            <input type="hidden" name="phoneNumber" value='.$customer->phone_number.'>
-            
-            <input type="hidden" name="gender" value='.$customer->gender.'>
             <button type="submit" class="btn btn-outline-primary btn-sm">Редактировать</button>
         </form>
         </td>
