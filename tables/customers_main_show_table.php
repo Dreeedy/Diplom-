@@ -60,7 +60,7 @@ $customers_arr = R::findall('customers');
             <input type="hidden" name="customer_middle_name" value='.$customer->middle_name.'>
             <input type="hidden" name="customer_phone_number" value='.$customer->phone_number.'>
             <input type="hidden" name="customer_address" value='.$customer->address.'>
-            <button type="submit" class="btn btn-outline-primary btn-sm">Выбрать</button>
+            <button type="submit" class="btn btn-outline-primary btn-sm">Редактировать</button>
         </form>
         </td>
     </tr>
