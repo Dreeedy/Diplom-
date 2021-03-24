@@ -33,6 +33,7 @@ $customers_arr = R::findall('customers');
     </thead>
     <tbody>
     <?
+    $_POST = null;
     $i = 1;
     $badge_bg = "";
 
@@ -51,15 +52,20 @@ $customers_arr = R::findall('customers');
         <td>'.$customer->phone_number.'</td>
         <td>'.$customer->address.'</td>
         
-        <td>'.$customer->gender.'</td>        
+        <td>'.$customer->gender. '</td>        
         <td>
-        <form method="get" action="../customers_show.php">
-            <input type="hidden" name="customer_id" value='.$customer->id.'>
-            <input type="hidden" name="customer_surname" value='.$customer->surname.'>
-            <input type="hidden" name="customer_name" value='.$customer->name.'>
-            <input type="hidden" name="customer_middle_name" value='.$customer->middle_name.'>
-            <input type="hidden" name="customer_phone_number" value='.$customer->phone_number.'>
-            <input type="hidden" name="customer_address" value='.$customer->address.'>
+        <form method="POST" action="../controllers/customersEditController.php">
+            <input type="hidden" name="customerId" value='.$customer->id.'>
+            
+            <input type="hidden" name="surname" value='.$customer->surname.'>
+            <input type="hidden" name="name" value='.$customer->name.'>
+            <input type="hidden" name="middleName" value='.$customer->middle_name.'>
+            
+            <input type="hidden" name="dateBirth" value='.$customer->date_birth.'>            
+            <input type="hidden" name="address" value='.$customer->address.'>
+            <input type="hidden" name="phoneNumber" value='.$customer->phone_number.'>
+            
+            <input type="hidden" name="gender" value='.$customer->gender.'>
             <button type="submit" class="btn btn-outline-primary btn-sm">Редактировать</button>
         </form>
         </td>
