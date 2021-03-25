@@ -293,11 +293,11 @@ function save_marriage($husbandId, $wifeId, $staffId)
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
-    $usersAndBookActs->divorce_acts = NULL;
+    //$usersAndBookActs->divorce_acts = NULL;
     $usersAndBookActs->marriage_acts = $marriageActs;
-    $usersAndBookActs->birth_acts = NULL;
-    $usersAndBookActs->death_acts = NULL;
-    $usersAndBookActs->adoption_acts = NULL;
+    //$usersAndBookActs->birth_acts = NULL;
+    //$usersAndBookActs->death_acts = NULL;
+    //$usersAndBookActs->adoption_acts = NULL;
 
     //сохраняю marriageacts
     R::store($marriageActs);
@@ -488,15 +488,15 @@ function save_marriage_divorce($marriage)
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
-    $usersAndBookActs->locality = NULL;
+    //$usersAndBookActs->locality = NULL;
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
     $usersAndBookActs->divorce_acts = $divorceActs;
-    $usersAndBookActs->marriage_acts = NULL;
-    $usersAndBookActs->birth_acts = NULL;
-    $usersAndBookActs->death_acts = NULL;
-    $usersAndBookActs->adoption_acts = NULL;
+    //$usersAndBookActs->marriage_acts = NULL;
+    //$usersAndBookActs->birth_acts = NULL;
+    //$usersAndBookActs->death_acts = NULL;
+    //$usersAndBookActs->adoption_acts = NULL;
 
     R::store($marriage);
 

@@ -135,11 +135,11 @@ function save_death_act($customer_id, $staff_id)
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
-    $usersAndBookActs->divorce_acts = NULL;
-    $usersAndBookActs->marriage_acts = NULL;
-    $usersAndBookActs->birth_acts = NULL;
+    //$usersAndBookActs->divorce_acts = NULL;
+    //$usersAndBookActs->marriage_acts = NULL;
+    //$usersAndBookActs->birth_acts = NULL;
     $usersAndBookActs->death_acts = $deathActs;
-    $usersAndBookActs->adoption_acts = NULL;
+    //$usersAndBookActs->adoption_acts = NULL;
 
     //сохраняю marriageacts
     R::store($deathActs);

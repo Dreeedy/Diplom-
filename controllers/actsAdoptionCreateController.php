@@ -267,10 +267,10 @@ function adoption_save($husbandId, $wifeId, $staffId)
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
-    $usersAndBookActs->divorce_acts = NULL;
-    $usersAndBookActs->marriage_acts = NULL;
-    $usersAndBookActs->birth_acts = NULL;
-    $usersAndBookActs->death_acts = NULL;
+    //$usersAndBookActs->divorce_acts = NULL;
+    //$usersAndBookActs->marriage_acts = NULL;
+    //$usersAndBookActs->birth_acts = NULL;
+    //$usersAndBookActs->death_acts = NULL;
     $usersAndBookActs->adoption_acts = $adoptionacts;
 
     R::store($usersAndBookActs);
