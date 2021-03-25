@@ -9,7 +9,7 @@
                 <div class="btn-group">
 
                     <a href="../customers_show.php">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр и редактирование</button>
                     </a>
 
                     <a href="../customers_register.php">

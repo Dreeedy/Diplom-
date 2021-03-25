@@ -13,8 +13,11 @@ if (!R::testConnection())
 /*02-Подключение к базе данных*/
 //Беру из базы всех сотрудников
 $usersandbookacts_arr = R::findall('usersandbookacts');
+$actstypes_arr = R::findAll('actstypes');
+
 
 $all_dates_arr = get_all_dates($usersandbookacts_arr);
+$all_acts_types_arr = get_all_acts_types($actstypes_arr);
 
 function get_all_dates($usersandbookacts_arr_local)
 {
@@ -33,6 +36,21 @@ function get_all_dates($usersandbookacts_arr_local)
     }
     return $all_dates_arr_local;
 }
+
+function get_all_acts_types($actstypes_arr)
+{
+
+}
+
+function require_table($type)
+{
+    if ($type->type_code == 0)
+    {
+        require "tables/marriageacts_table.php";
+    }
+
+}
+
 
 ?>
 <!--<table class="table table-striped table-hover">-->
@@ -92,12 +110,34 @@ function get_all_dates($usersandbookacts_arr_local)
         </h2>
         <div id="flush-collapseOne_<?= $data; ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne_<?= $data; ?>" data-bs-parent="#accordionFlushExample_<?= $data; ?>">
             <div class="accordion-body px-0">
-                <!-- 01 - Четыре вида актов - Open -->
-                1
-                2
-                3
-                4
-                <!-- 02 - Четыре вида актов - Close -->
+
+
+
+                <!-- 01 - Пять видов актов - Open -->
+                <? foreach ($actstypes_arr as $type): ?>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>" aria-expanded="false" aria-controls="flush-collapseOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>">
+                                <?= $type->type_name; ?>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>" data-bs-parent="#accordionFlushExample_<?= str_replace(" ", '_', $type->type_name.$data); ?>">
+                            <div class="accordion-body px-0">
+                                тут должна быть таблица с нужными данными
+                                <div class="overflow-auto" style="max-height: 663px">
+                                    <!-- 01 - Универсальная таблица - Open -->
+                                    <? $_SESSION['SHOW']['unicle_data'] = $data ?>
+                                    <? require_table($type) ?>
+                                    <!-- 02 - Универсальная таблица - Close -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <? endforeach; ?>
+                <!-- 02 - Пять видов актов - Close -->
+
+
+
             </div>
         </div>
     </div>
