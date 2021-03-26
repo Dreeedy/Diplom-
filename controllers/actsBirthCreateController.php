@@ -246,14 +246,14 @@ function birth_save($husbandId, $wifeId, $staffId)
     $role->ownCustomersList[] = $child;
     R::store($role);
 
-    $birthActs = R::dispense('birthacts');
-    $birthActs->date_birth = $_SESSION['BIRTH']['date_birth'];
-    $birthActs->husband = $husband;
-    $birthActs->wife = $wife;
-    $birthActs->child = $child;
-    $birthActs->staff = $staff;
+    $birthacts = R::dispense('birthacts');
+    $birthacts->date_birth = $_SESSION['BIRTH']['date_birth'];
+    $birthacts->husband = $husband;
+    $birthacts->wife = $wife;
+    $birthacts->child = $child;
+    $birthacts->staff = $staff;
 
-    R::store($birthActs);
+    R::store($birthacts);
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
@@ -263,7 +263,7 @@ function birth_save($husbandId, $wifeId, $staffId)
 
     //$usersAndBookActs->divorce_acts = NULL;
     //$usersAndBookActs->marriage_acts = NULL;
-    $usersAndBookActs->birth_acts = $birthActs;
+    $usersAndBookActs->birthacts = $birthacts;
     //$usersAndBookActs->death_acts = NULL;
     //$usersAndBookActs->adoption_acts = NULL;
 

@@ -48,6 +48,10 @@ function require_table($type)
     {
         require "tables/marriageacts_table.php";
     }
+    if ($type->type_code == 1)
+    {
+        require "tables/birthacts_table.php";
+    }
 
 }
 
