@@ -3,7 +3,9 @@
         <div class="container">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1">
-                    <img class="" src="/icons/favicon.svg" alt="" width="38px" height="38px">
+                    <a href="../index.php">
+                        <img class="" src="/icons/favicon.svg" alt="" width="38px" height="38px">
+                    </a>
                 </div>
                 <div class="col-4 text-center">
                     <h3 class="col-11">ЗАГС ИК МО "ЛМР" РТ</h3>
