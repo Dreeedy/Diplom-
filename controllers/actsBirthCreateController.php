@@ -43,10 +43,6 @@ function birth_act_register()
 
     if ($haveValidateError == false)
     {
-        $checkHusband = false;
-        $checkWife = false;
-        $checkChild = false;
-
         $checkHusband = check_customer($_SESSION['BIRTH']['HUSBAND']['husband_surname'], $_SESSION['BIRTH']['HUSBAND']['husband_name'], $_SESSION['BIRTH']['HUSBAND']['husband_middle_name'], 0);
         $checkWife = check_customer($_SESSION['BIRTH']['WIFE']['wife_surname'], $_SESSION['BIRTH']['WIFE']['wife_name'], $_SESSION['BIRTH']['WIFE']['wife_middle_name'], 1);
         $checkChild = check_customer($_SESSION['BIRTH']['CHILD']['child_surname'], $_SESSION['BIRTH']['CHILD']['child_name'], $_SESSION['BIRTH']['CHILD']['child_middle_name'], 2);
@@ -274,4 +270,35 @@ function birth_save($husbandId, $wifeId, $staffId)
     R::store($usersAndBookActs);
 
     array_push($_SESSION['BIRTH']['SUCCESS'], "Акт о рождении ребенка успешно зарегистрирован");
+
+    clear_session();
+}
+
+function clear_session()
+{
+    $_SESSION['BIRTH']['HUSBAND']['husband_id'] = NULL;
+    $_SESSION['BIRTH']['HUSBAND']['husband_surname'] = NULL;
+    $_SESSION['BIRTH']['HUSBAND']['husband_name'] = NULL;
+    $_SESSION['BIRTH']['HUSBAND']['husband_middle_name'] = NULL;
+    //$_SESSION['BIRTH']['HUSBAND']['ERRORS'] = [];
+    //$_SESSION['BIRTH']['HUSBAND']['visually_hidden'] = false;//false
+
+    $_SESSION['BIRTH']['WIFE']['wife_id'] = NULL;
+    $_SESSION['BIRTH']['WIFE']['wife_surname'] = NULL;
+    $_SESSION['BIRTH']['WIFE']['wife_name'] = NULL;
+    $_SESSION['BIRTH']['WIFE']['wife_middle_name'] = NULL;
+    //$_SESSION['BIRTH']['WIFE']['ERRORS'] = [];
+    //$_SESSION['BIRTH']['WIFE']['visually_hidden'] = false;//false
+
+    $_SESSION['BIRTH']['CHILD']['child_surname'] = NULL;
+    $_SESSION['BIRTH']['CHILD']['child_name'] = NULL;
+    $_SESSION['BIRTH']['CHILD']['child_middle_name'] = NULL;
+    $_SESSION['BIRTH']['CHILD']['gender'] = NULL;
+    //$_SESSION['BIRTH']['CHILD']['ERRORS'] = [];
+    //$_SESSION['BIRTH']['CHILD']['visually_hidden'] = false;//false
+
+    $_SESSION['BIRTH']['date_birth'] = NULL;
+
+    //$_SESSION['BIRTH']['SUCCESS'] = [];
+    //$_SESSION['BIRTH']['ERRORS'] = [];
 }
