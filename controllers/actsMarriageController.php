@@ -30,9 +30,6 @@ function marriage_register()
     $point_one = false;
     $point_two = false;
 
-    $checkHusband = false;
-    $checkWife = false;
-
     fill_session($_POST);
     data_validate();
 
@@ -268,7 +265,7 @@ function save_marriage($husbandId, $wifeId, $staffId)
     //меняю фамилию мужу или жене
     if ($_SESSION['MARRIAGE']['main_surname'] == 'husband_surname')
     {
-        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'];
+        $wife->surname = $_SESSION['MARRIAGE']['HUSBAND']['husband_surname'].'а';
     }
 
     //погдружаю работника
@@ -278,14 +275,14 @@ function save_marriage($husbandId, $wifeId, $staffId)
     $actType = R::load('actstypes', 1);//свидетельство о браке
 
     //создаю таблицу браки
-    $marriageActs = R::dispense('marriageacts');
-    $marriageActs->date_marriage = $_SESSION['MARRIAGE']['date_marriage'];
+    $marriageacts = R::dispense('marriageacts');
+    $marriageacts->date_marriage = $_SESSION['MARRIAGE']['date_marriage'];
     //$marriageActs->date_divorce = NULL;
-    $marriageActs->is_active = true;
+    $marriageacts->is_active = true;
 
-    $marriageActs->staff = $staff;
-    $marriageActs->husband = $husband;
-    $marriageActs->wife = $wife;
+    $marriageacts->staff = $staff;
+    $marriageacts->husband = $husband;
+    $marriageacts->wife = $wife;
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
@@ -294,13 +291,13 @@ function save_marriage($husbandId, $wifeId, $staffId)
     $usersAndBookActs->act_types = $actType;
 
     //$usersAndBookActs->divorce_acts = NULL;
-    $usersAndBookActs->marriage_acts = $marriageActs;
+    $usersAndBookActs->marriageacts = $marriageacts;
     //$usersAndBookActs->birth_acts = NULL;
     //$usersAndBookActs->death_acts = NULL;
     //$usersAndBookActs->adoption_acts = NULL;
 
     //сохраняю marriageacts
-    R::store($marriageActs);
+    R::store($marriageacts);
 
     //сохраняю usersandbookacts
     R::store($usersAndBookActs);
