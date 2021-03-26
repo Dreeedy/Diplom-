@@ -123,7 +123,6 @@ function require_table($type)
                         </h2>
                         <div id="flush-collapseOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne_<?= str_replace(" ", '_', $type->type_name.$data); ?>" data-bs-parent="#accordionFlushExample_<?= str_replace(" ", '_', $type->type_name.$data); ?>">
                             <div class="accordion-body px-0">
-                                тут должна быть таблица с нужными данными
                                 <div class="overflow-auto" style="max-height: 663px">
                                     <!-- 01 - Универсальная таблица - Open -->
                                     <? $_SESSION['SHOW']['unicle_data'] = $data ?>
