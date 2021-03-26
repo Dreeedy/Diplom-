@@ -271,9 +271,41 @@ function adoption_save($husbandId, $wifeId, $staffId)
     //$usersAndBookActs->marriage_acts = NULL;
     //$usersAndBookActs->birth_acts = NULL;
     //$usersAndBookActs->death_acts = NULL;
-    $usersAndBookActs->adoption_acts = $adoptionacts;
+    $usersAndBookActs->adoptionacts = $adoptionacts;
 
     R::store($usersAndBookActs);
 
     array_push($_SESSION['ADOPTION']['SUCCESS'], "Акт о усыновлении (удочерении) ребенка успешно зарегистрирован");
+
+    clear_session();
+}
+
+function clear_session()
+{
+    $_SESSION['ADOPTION']['HUSBAND']['husband_id'] = NULL;
+    $_SESSION['ADOPTION']['HUSBAND']['husband_surname'] = NULL;
+    $_SESSION['ADOPTION']['HUSBAND']['husband_name'] = NULL;
+    $_SESSION['ADOPTION']['HUSBAND']['husband_middle_name'] = NULL;
+    //$_SESSION['ADOPTION']['HUSBAND']['ERRORS'] = [];
+    //$_SESSION['ADOPTION']['HUSBAND']['visually_hidden'] = false;//false
+
+    $_SESSION['ADOPTION']['WIFE']['wife_id'] = NULL;
+    $_SESSION['ADOPTION']['WIFE']['wife_surname'] = NULL;
+    $_SESSION['ADOPTION']['WIFE']['wife_name'] = NULL;
+    $_SESSION['ADOPTION']['WIFE']['wife_middle_name'] = NULL;
+    //$_SESSION['ADOPTION']['WIFE']['ERRORS'] = [];
+    //$_SESSION['ADOPTION']['WIFE']['visually_hidden'] = false;//false
+
+    $_SESSION['ADOPTION']['CHILD']['child_surname'] = NULL;
+    $_SESSION['ADOPTION']['CHILD']['child_name'] = NULL;
+    $_SESSION['ADOPTION']['CHILD']['child_middle_name'] = NULL;
+    $_SESSION['ADOPTION']['CHILD']['gender'] = NULL;
+    //$_SESSION['ADOPTION']['CHILD']['ERRORS'] = [];
+    //$_SESSION['ADOPTION']['CHILD']['visually_hidden'] = false;//false
+
+    $_SESSION['ADOPTION']['date_birth'] = NULL;
+    $_SESSION['ADOPTION']['date_adoption'] = NULL;
+
+    //$_SESSION['ADOPTION']['SUCCESS'] = [];
+    //$_SESSION['ADOPTION']['ERRORS'] = [];
 }

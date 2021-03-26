@@ -52,7 +52,10 @@ function require_table($type)
     {
         require "tables/birthacts_table.php";
     }
-
+    if ($type->type_code == 2)
+    {
+        require "tables/adoptionacts_table.php";
+    }
 }
 
 
