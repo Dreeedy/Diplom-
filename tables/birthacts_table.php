@@ -20,7 +20,7 @@ foreach ($usersandbookacts_arr as $uba)
         <th scope="col">ФИО Мужа</th>
         <th scope="col">ФИО Жены</th>
         <th scope="col">ФИО Ребенка</th>
-        <th scope="col">Дата заключения</th>
+        <th scope="col">Дата рождения</th>
     </tr>
     </thead>
     <tbody>
