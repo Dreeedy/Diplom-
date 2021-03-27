@@ -56,6 +56,14 @@ function require_table($type)
     {
         require "tables/adoptionacts_table.php";
     }
+    if ($type->type_code == 3)
+    {
+        require "tables/deathacts_table.php";
+    }
+    if ($type->type_code == 4)
+    {
+        require "tables/divorceacts_table.php";
+    }
 }
 
 

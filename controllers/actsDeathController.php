@@ -123,11 +123,11 @@ function save_death_act($customer_id, $staff_id)
 
     $actType = R::load('actstypes', 4);//свидетельство о смерти
 
-    $deathActs = R::dispense('deathacts');
-    $deathActs->date_death = $_SESSION['DEATHH']['date_death'];
-    $deathActs->customer = $customer;
+    $deathacts = R::dispense('deathacts');
+    $deathacts->date_death = $_SESSION['DEATHH']['date_death'];
+    $deathacts->customer = $customer;
 
-    $deathActs->staff = $staff;
+    $deathacts->staff = $staff;
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
@@ -138,11 +138,11 @@ function save_death_act($customer_id, $staff_id)
     //$usersAndBookActs->divorce_acts = NULL;
     //$usersAndBookActs->marriage_acts = NULL;
     //$usersAndBookActs->birth_acts = NULL;
-    $usersAndBookActs->death_acts = $deathActs;
+    $usersAndBookActs->deathacts = $deathacts;
     //$usersAndBookActs->adoption_acts = NULL;
 
     //сохраняю marriageacts
-    R::store($deathActs);
+    R::store($deathacts);
 
     //сохраняю usersandbookacts
     R::store($usersAndBookActs);

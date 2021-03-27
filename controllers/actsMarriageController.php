@@ -476,12 +476,12 @@ function save_marriage_divorce($marriage)
 
     $actType = R::load('actstypes', 5);//свидетельство о расторжении брака
 
-    $divorceActs = R::dispense('divorceacts');
-    $divorceActs->date_divorce = $_SESSION['DIVORCE']['date_divorce'];
+    $divorceacts = R::dispense('divorceacts');
+    $divorceacts->date_divorce = $_SESSION['DIVORCE']['date_divorce'];
 
-    $divorceActs->staff = $staff;
-    $divorceActs->husband = $husband;
-    $divorceActs->wife = $wife;
+    $divorceacts->staff = $staff;
+    $divorceacts->husband = $husband;
+    $divorceacts->wife = $wife;
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
@@ -489,7 +489,7 @@ function save_marriage_divorce($marriage)
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
-    $usersAndBookActs->divorce_acts = $divorceActs;
+    $usersAndBookActs->divorceacts = $divorceacts;
     //$usersAndBookActs->marriage_acts = NULL;
     //$usersAndBookActs->birth_acts = NULL;
     //$usersAndBookActs->death_acts = NULL;
@@ -497,7 +497,7 @@ function save_marriage_divorce($marriage)
 
     R::store($marriage);
 
-    R::store($divorceActs);
+    R::store($divorceacts);
 
     R::store($usersAndBookActs);
 
