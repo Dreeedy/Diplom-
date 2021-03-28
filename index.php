@@ -1,6 +1,7 @@
 <?php
 session_start();
-if ($_SESSION['auth'] == false) {
+if ($_SESSION['auth'] == false)
+{
     //если пользователь не авторизован
     header('location: login.php');
 }
@@ -27,10 +28,7 @@ require 'my_help.php';
 
 <!--MAIN-->
 <main>
-    <?  ?>
-    <?
-    require "blocks/main_staff.php";
-    ?>
+    <? require "blocks/main_staff.php"; ?>
 </main>
 
 <!--Конец MAIN-->

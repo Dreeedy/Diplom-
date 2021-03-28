@@ -27,9 +27,7 @@ if ($_SESSION['code'] != 3)
 
 <!--MAIN-->
 <main>
-    <?
-    require "blocks/main_admin.php";
-    ?>
+    <? require "blocks/main_admin.php"; ?>
 </main>
 
 <!--Конец MAIN-->

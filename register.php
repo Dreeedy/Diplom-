@@ -26,7 +26,7 @@ if ($_SESSION['code'] != 3)
 
     <form action="registerController.php" method="post">
 
-        <img class="mb-4" src="icons/favicon.svg" alt="" width="72" height="57">
+        <img class="mb-4" src="icons/gerb.svg" alt="" width="72" height="57">
 
         <h1 class="h3 mb-3 fw-normal">Регистрация персонала</h1>
 
@@ -106,7 +106,7 @@ if ($_SESSION['code'] != 3)
         <button class="w-100 btn btn-lg btn-primary mb-1" type="submit">Зарегистрировать</button>
     </form>
 
-        <a href="admin.php">
+        <a href="index.php">
             <button class="w-100 btn btn-lg btn-primary">Назад</button>
         </a>
 

@@ -7,6 +7,15 @@
                     if ($_SESSION['code'] == 3)
                     {
                         require "blocks/menu_staff.php";
+
+                        require "blocks/customers_menu.php";
+
+                        require "blocks/customers_&_book_acts_menu.php";
+
+                        require 'blocks/acts_marriage_menu.php';
+                        require 'blocks/acts_birth_menu.php';
+                        require 'blocks/acts_adoption_menu.php';
+                        require 'blocks/acts_death_menu.php';
                     }
                     if ($_SESSION['code'] == 2)
                     {

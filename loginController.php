@@ -25,7 +25,7 @@ function log_in($request)
         {
             //если admin
             $_SESSION['backPage'] = 'location: login.php';
-            header('location: admin.php');
+            header('location: index.php');
         }
         else
         {
