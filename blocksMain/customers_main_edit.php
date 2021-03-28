@@ -1,38 +1,9 @@
 <div class="container" style="min-height: 873px;">
     <div class="row g-3 py-5">
         <div class="col-md-4 col-lg-3 order-md-last">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Меню</span>
-            </h4>
-
-            <div class="list-group mb-3">
-                <div class="mb-1">
-                    <a href="../index.php">
-                        <button class="w-100 btn btn-md btn-outline-danger text-start">Назад</button>
-                    </a>
-                </div>
-                <div class="mb-1">
-                    <a href="">
-                        <button class="w-100 btn btn-md btn-primary text-start">Добавить акт о бракосочетании</button>
-                    </a>
-                </div>
-                <div class="mb-1">
-                    <a href="">
-                        <button class="w-100 btn btn-md btn-primary text-start">Добавить акт о усыновлении</button>
-                    </a>
-                </div>
-                <div class="mb-1">
-                    <a href="">
-                        <button class="w-100 btn btn-md btn-primary text-start">Добавить акт о рождении</button>
-                    </a>
-                </div>
-                <div class="mb-1">
-                    <a href="">
-                        <button class="w-100 btn btn-md btn-primary text-start">Добавить акт о смерти</button>
-                    </a>
-                    </a>
-                </div>
-            </div>
+            <!-- 01 - Вертикальное меню - Open -->
+            <? require_once 'verical_menu/verticalMenu.php'?>
+            <!-- 02 - Вертикальное меню - Close -->
 
         </div>
         <div class="col-md-8 col-lg-9">
