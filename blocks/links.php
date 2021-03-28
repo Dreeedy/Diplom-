@@ -1,5 +1,5 @@
 <!--Иконка сайта-->
-<link rel="shortcut icon" href="/icons/favicon.svg" type="image/svg">
+<link rel="shortcut icon" href="/icons/gerb.svg" type="image/svg">
 <!--Конец Иконки сайта-->
 
 <!--Подключение CSS-->

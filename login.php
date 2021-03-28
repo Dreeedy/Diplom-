@@ -26,7 +26,7 @@ if ($_SESSION['auth'] == true)
 
     <form action="loginController.php" method="post">
 
-        <img class="mb-4" src="icons/favicon.svg" alt="" width="72" height="57">
+        <img class="mb-4" src="icons/gerb.svg" alt="" width="72" height="57">
 
         <h1 class="h3 mb-3 fw-normal">Пожалуйста авторизуйтесь</h1>
 
