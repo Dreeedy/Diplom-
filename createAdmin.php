@@ -33,8 +33,8 @@
         }
         /*02-Подключение к базе данных*/
 
-        $role_ID = R::findOne('roles', 'role_name = ?',  ['admin']);
-        $role = R::load('roles', $role_ID->id);
+        //$role_ID = R::findOne('roles', 'role_name = ?',  ['admin']);
+        $role = R::load('roles', 3);
 
         $staf = R::dispense('staff');
         $staf->surname = 'Иванов';
@@ -42,6 +42,7 @@
         $staf->middleName = 'Иванович';
         $staf->phoneNumber = '+79172444941';
         $staf->password = 'admin';
+        $staf->itWorks      = true;
 
         $role->ownStaffList[] = $staf;
         R::store($role);

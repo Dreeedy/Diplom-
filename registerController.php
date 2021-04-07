@@ -151,6 +151,7 @@ function reg_user()
     $staf->middleName   = $_SESSION['REGISTER']['inputMiddleName'];
     $staf->phoneNumber  = $_SESSION['REGISTER']['inputPhoneNumber'];
     $staf->password     = $_SESSION['REGISTER']['inputPassword'];
+    $staf->itWorks      = true;
 
     $role->ownStaffList[] = $staf;
     R::store($role);
