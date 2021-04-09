@@ -6,27 +6,28 @@
                     <?
                     if ($_SESSION['code'] == 3)
                     {
-                        require "blocks/menu_staff.php";
+                        require_once "blocks/menu_staff.php";
+                        require_once "blocks/statistic_menu.php";
 
-                        require "blocks/customers_menu.php";
+                        require_once "blocks/customers_menu.php";
 
-                        require "blocks/customers_&_book_acts_menu.php";
+                        require_once "blocks/customers_&_book_acts_menu.php";
 
-                        require 'blocks/acts_marriage_menu.php';
-                        require 'blocks/acts_birth_menu.php';
-                        require 'blocks/acts_adoption_menu.php';
-                        require 'blocks/acts_death_menu.php';
+                        require_once 'blocks/acts_marriage_menu.php';
+                        require_once 'blocks/acts_birth_menu.php';
+                        require_once 'blocks/acts_adoption_menu.php';
+                        require_once 'blocks/acts_death_menu.php';
                     }
                     if ($_SESSION['code'] == 2)
                     {
-                        require "blocks/customers_menu.php";
+                        require_once "blocks/customers_menu.php";
 
-                        require "blocks/customers_&_book_acts_menu.php";
+                        require_once "blocks/customers_&_book_acts_menu.php";
 
-                        require 'blocks/acts_marriage_menu.php';
-                        require 'blocks/acts_birth_menu.php';
-                        require 'blocks/acts_adoption_menu.php';
-                        require 'blocks/acts_death_menu.php';
+                        require_once 'blocks/acts_marriage_menu.php';
+                        require_once 'blocks/acts_birth_menu.php';
+                        require_once 'blocks/acts_adoption_menu.php';
+                        require_once 'blocks/acts_death_menu.php';
                     }
                     ?>
                 </div>
