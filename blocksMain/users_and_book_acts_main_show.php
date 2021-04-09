@@ -4,7 +4,7 @@
     <!--02 Горизонтальное меню-->
     <!--01 Кусок таблицы-->
     <div class="pt-2 pb-1 row">
-        <h2 class="col-auto">Клиенты</h2>
+        <h2 class="col-auto">Книга актов</h2>
         <div class="col btn-outline-primary btn text-start my-auto visually-hidden">
             Выбран: <? echo $_GET['customer_surname'].' '.
                 $_GET['customer_name'].' '.
