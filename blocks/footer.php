@@ -29,3 +29,7 @@
         </div>
     </div>
 </footer>
+
+<!--Подключение JS-->
+<script src="../js/myJs.js"></script>
+<!--Конец подключения JS-->

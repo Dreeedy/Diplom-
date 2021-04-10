@@ -258,6 +258,7 @@ function adoption_save($husbandId, $wifeId, $staffId)
     $adoptionacts->wife = $wife;
     $adoptionacts->child = $child;
     $adoptionacts->staff = $staff;
+    $adoptionacts->date = date("Y-m-d");
 
     R::store($adoptionacts);
 
@@ -265,6 +266,7 @@ function adoption_save($husbandId, $wifeId, $staffId)
     $usersAndBookActs = R::dispense('usersandbookacts');
     $usersAndBookActs->locality = NULL;
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->date = date("Y-m-d");//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
     //$usersAndBookActs->divorce_acts = NULL;
@@ -277,7 +279,7 @@ function adoption_save($husbandId, $wifeId, $staffId)
 
     array_push($_SESSION['ADOPTION']['SUCCESS'], "Акт о усыновлении (удочерении) ребенка успешно зарегистрирован");
 
-    clear_session();
+    clear_session();// ->date = date("Y-m-d");
 }
 
 function clear_session()

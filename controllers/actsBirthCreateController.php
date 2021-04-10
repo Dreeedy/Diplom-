@@ -252,6 +252,7 @@ function birth_save($husbandId, $wifeId, $staffId)
     $birthacts->wife = $wife;
     $birthacts->child = $child;
     $birthacts->staff = $staff;
+    $birthacts->date = date("Y-m-d");
 
     R::store($birthacts);
 
@@ -259,6 +260,7 @@ function birth_save($husbandId, $wifeId, $staffId)
     $usersAndBookActs = R::dispense('usersandbookacts');
     $usersAndBookActs->locality = NULL;
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->date = date("Y-m-d");//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
     //$usersAndBookActs->divorce_acts = NULL;

@@ -126,6 +126,7 @@ function save_death_act($customer_id, $staff_id)
     $deathacts = R::dispense('deathacts');
     $deathacts->date_death = $_SESSION['DEATHH']['date_death'];
     $deathacts->customer = $customer;
+    $deathacts->date = date("Y-m-d");
 
     $deathacts->staff = $staff;
 
@@ -133,6 +134,7 @@ function save_death_act($customer_id, $staff_id)
     $usersAndBookActs = R::dispense('usersandbookacts');
     $usersAndBookActs->locality = NULL;
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->date = date("Y-m-d");//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
     //$usersAndBookActs->divorce_acts = NULL;

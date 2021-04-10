@@ -283,11 +283,13 @@ function save_marriage($husbandId, $wifeId, $staffId)
     $marriageacts->staff = $staff;
     $marriageacts->husband = $husband;
     $marriageacts->wife = $wife;
+    $marriageacts->date = date("Y-m-d");
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
     $usersAndBookActs->locality = NULL;
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->date = date("Y-m-d");//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
     //$usersAndBookActs->divorce_acts = NULL;
@@ -482,11 +484,13 @@ function save_marriage_divorce($marriage)
     $divorceacts->staff = $staff;
     $divorceacts->husband = $husband;
     $divorceacts->wife = $wife;
+    $divorceacts->date = date("Y-m-d");
 
     //создаю таблицу пользотели и книги
     $usersAndBookActs = R::dispense('usersandbookacts');
-    //$usersAndBookActs->locality = NULL;
+    $usersAndBookActs->locality = NULL;
     $usersAndBookActs->year = date('Y');//дата внесения в базу?
+    $usersAndBookActs->date = date("Y-m-d");//дата внесения в базу?
     $usersAndBookActs->act_types = $actType;
 
     $usersAndBookActs->divorceacts = $divorceacts;
