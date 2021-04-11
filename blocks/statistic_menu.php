@@ -7,7 +7,7 @@
             <a href="../controllers/statisticShowController.php" class="text-decoration-none">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Статистика</button>
             </a>
-            <a href="../acts_adoption_create.php" class="text-decoration-none">
+            <a href="../reportPage.php" class="text-decoration-none">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Отчеты</button>
             </a>
         </div>
