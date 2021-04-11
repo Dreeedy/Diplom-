@@ -28,6 +28,13 @@ function get_statistic()
     get_single_statistic();
 
     header('location: ../statisticPage.php');
+
+    //clear_session();
+}
+
+function clear_session()
+{
+    $_SESSION['STATISTIC']['ERRORS'] = [];
 }
 
 function get_all_statistic()
@@ -54,10 +61,30 @@ function get_single_statistic()
     $name = $_SESSION['STATISTIC']['name'];
     $middlename = $_SESSION['STATISTIC']['middlename'];
 
+    if (preg_match('/[^,\p{Cyrillic}]/ui', $surname))
+    {
+        //если содержит не только кириллицу
+        array_push($_SESSION['STATISTIC']['ERRORS'], "Фамилия может содержать только кириллицу");
+    }
+    if (preg_match('/[^,\p{Cyrillic}]/ui', $name))
+    {
+        //если содержит не только кириллицу
+        array_push($_SESSION['STATISTIC']['ERRORS'], "Имя может содержать только кириллицу");
+    }
+    if (preg_match('/[^,\p{Cyrillic}]/ui', $middlename))
+    {
+        //если содержит не только кириллицу
+        array_push($_SESSION['STATISTIC']['ERRORS'], "Отчество может содержать только кириллицу");
+    }
+
     if ($surname != "" && $name != "" && $middlename != "")
     {
         $staff = R::findOne('staff', 'surname = ? and name = ? and middle_name = ?', [$surname, $name, $middlename]);
         $staffId = $staff->id;
+    }
+    if ($staff->id == null && empty($_SESSION['STATISTIC']['ERRORS']))
+    {
+        array_push($_SESSION['STATISTIC']['ERRORS'], "Сотрудник не найден");
     }
 
     $startDate = $_SESSION['STATISTIC']['beginning_period'];
@@ -96,4 +123,6 @@ function fill_session()
     $_SESSION['STATISTIC']['single_count_adoptionacts'] = null;
     $_SESSION['STATISTIC']['single_count_deathacts'] = null;
     $_SESSION['STATISTIC']['single_count_divorceacts'] = null;
+
+    $_SESSION['STATISTIC']['ERRORS'] = [];
 }

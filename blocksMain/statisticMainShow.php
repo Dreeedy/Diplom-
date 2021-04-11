@@ -78,13 +78,21 @@
                         <input type="text" class="form-control" name="middlename" value="<? echo $_SESSION['STATISTIC']['middlename']?>">
                     </div>
                     <div class="col-md-auto">
+                        <div style="height: 27px; margin-bottom: 9px"></div>
                         <button type="submit" class="btn btn-primary">Поиск</button>
                     </div>
                 </div>
                 <!--                </form>-->
-                <div style="background-color: red">
-                    ERRORS
-                </div>
+                <?
+                if (!empty($_SESSION['STATISTIC']['ERRORS']))
+                {
+                    foreach ($_SESSION['STATISTIC']['ERRORS'] as $error)
+                    {
+                        echo '<div class="alert alert-danger mb-1 p-2 text-center" role="alert">' . $error . '</div>';
+                    }
+                    $_SESSION['STATISTIC']['ERRORS'] = [];
+                }
+                ?>
             </div>
             <!-- 02 - Поиск сотрудника - Close -->
 
