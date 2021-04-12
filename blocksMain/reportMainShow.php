@@ -114,11 +114,29 @@
             </div>
             <!-- 02 - Поиск сотрудника - Close -->
 
-            <!-- 01 - Обновить статистику - Open -->
-            <div class="py-3">
-                <button type="submit" class="w-100 btn btn-primary">Экспортировать отчет</button>
+            <!-- 01 - Список отчетов - Open -->
+            <div class="py-3 overflow-auto" style="max-height: 200px">
+                <h2 class="col-md-auto">Скачать готовые отчеты</h2>
+                <?
+                $a = scandir('export');
+                unset($a[0]);
+                unset($a[1]);
+                $a = array_values($a);
+                ?>
+
+                <?php foreach($a as $key=>$value): ?>
+                    <a href="../export/<?echo $value?>" download> <? echo $value ?> </a>
+                <br>
+                <?php endforeach; ?>
             </div>
-            <!-- 02 - Обновить статистику - Close -->
+            <!-- 02 - Список отчетов - Close -->
+
+
+            <!-- 01 - Экспортировать отчет - Open -->
+            <div class="py-3">
+                <button type="submit" class="w-100 btn btn-primary">Сформировать отчет</button>
+            </div>
+            <!-- 02 - Экспортировать отчет - Close -->
         </form>
     </div>
 </div>
