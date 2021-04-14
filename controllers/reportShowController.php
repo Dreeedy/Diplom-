@@ -456,5 +456,5 @@ function fill_session()
 
 function clear_session()
 {
-    $_SESSION['REPORT']['ERRORS'] = [];
+    //$_SESSION['REPORT']['ERRORS'] = [];
 }

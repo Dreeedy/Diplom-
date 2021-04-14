@@ -124,6 +124,16 @@
                         }
                         ?>
                     </div>
+                    <?
+                    if (!empty($_SESSION['REPORT']['ERRORS']))
+                    {
+                        foreach ($_SESSION['REPORT']['ERRORS'] as $error)
+                        {
+                            echo '<div class="alert alert-danger mb-1 p-2 text-center" role="alert">' . $error . '</div>';
+                        }
+                        $_SESSION['REPORT']['ERRORS'] = [];
+                    }
+                    ?>
                     <!-- 02 - Вывод ошибок - Close -->
                     <!-- 01 - Список отчетов - Open -->
                     <div class="py-3 overflow-auto" style="max-height: 200px">

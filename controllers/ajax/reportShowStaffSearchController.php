@@ -34,7 +34,7 @@ function fill_session()
     $_SESSION['REPORT']['name'] = $_POST['name'];
     $_SESSION['REPORT']['middlename'] = $_POST['middlename'];
 
-    $_SESSION['REPORT']['ERRORS'] = [];
+    $_SESSION['REPORT']['ERRORS1'] = [];
 }
 
 function find_staff()
@@ -46,17 +46,17 @@ function find_staff()
     if (preg_match('/[^,\p{Cyrillic}]/ui', $surname))
     {
         //если содержит не только кириллицу
-        array_push($_SESSION['REPORT']['ERRORS'], "Фамилия может содержать только кириллицу");
+        array_push($_SESSION['REPORT']['ERRORS1'], "Фамилия может содержать только кириллицу");
     }
     if (preg_match('/[^,\p{Cyrillic}]/ui', $name))
     {
         //если содержит не только кириллицу
-        array_push($_SESSION['REPORT']['ERRORS'], "Имя может содержать только кириллицу");
+        array_push($_SESSION['REPORT']['ERRORS1'], "Имя может содержать только кириллицу");
     }
     if (preg_match('/[^,\p{Cyrillic}]/ui', $middlename))
     {
         //если содержит не только кириллицу
-        array_push($_SESSION['REPORT']['ERRORS'], "Отчество может содержать только кириллицу");
+        array_push($_SESSION['REPORT']['ERRORS1'], "Отчество может содержать только кириллицу");
     }
 
     if ($surname != "" && $name != "" && $middlename != "")
@@ -64,18 +64,18 @@ function find_staff()
         $staff = R::findOne('staff', 'surname = ? and name = ? and middle_name = ?', [$surname, $name, $middlename]);
         $staffId = $staff->id;
     }
-    if ($staff->id == null && empty($_SESSION['REPORT']['ERRORS']))
+    if ($staff->id == null && empty($_SESSION['REPORT']['ERRORS1']))
     {
-        array_push($_SESSION['REPORT']['ERRORS'], "Сотрудник не найден");
+        array_push($_SESSION['REPORT']['ERRORS1'], "Сотрудник не найден");
     }
 }
 
 function get_errors()
 {
     $arr = [];
-    if (!empty($_SESSION['REPORT']['ERRORS']))
+    if (!empty($_SESSION['REPORT']['ERRORS1']))
     {
-        foreach ($_SESSION['REPORT']['ERRORS'] as $error)
+        foreach ($_SESSION['REPORT']['ERRORS1'] as $error)
         {
             array_push($arr, $error);
         }
