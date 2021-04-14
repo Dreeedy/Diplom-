@@ -457,4 +457,8 @@ function fill_session()
 function clear_session()
 {
     //$_SESSION['REPORT']['ERRORS'] = [];
+
+    $_SESSION['REPORT']['surname'] = "";
+    $_SESSION['REPORT']['name'] = "";
+    $_SESSION['REPORT']['middlename'] = "";
 }
