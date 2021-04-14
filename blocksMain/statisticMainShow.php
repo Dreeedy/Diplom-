@@ -82,17 +82,20 @@
                         <button type="submit" class="btn btn-primary">Поиск</button>
                     </div>
                 </div>
-                <!--                </form>-->
-                <?
-                if (!empty($_SESSION['STATISTIC']['ERRORS']))
-                {
-                    foreach ($_SESSION['STATISTIC']['ERRORS'] as $error)
+                <!-- 01 - Вывод ошибок - Open -->
+                <div>
+                    <?
+                    if (!empty($_SESSION['STATISTIC']['ERRORS']))
                     {
-                        echo '<div class="alert alert-danger mb-1 p-2 text-center" role="alert">' . $error . '</div>';
+                        foreach ($_SESSION['STATISTIC']['ERRORS'] as $error)
+                        {
+                            echo '<div class="alert alert-danger mb-1 p-2 text-center" role="alert">' . $error . '</div>';
+                        }
+                        $_SESSION['STATISTIC']['ERRORS'] = [];
                     }
-                    $_SESSION['STATISTIC']['ERRORS'] = [];
-                }
-                ?>
+                    ?>
+                </div>
+                <!-- 02 - Вывод ошибок - Close -->
             </div>
             <!-- 02 - Поиск сотрудника - Close -->
 

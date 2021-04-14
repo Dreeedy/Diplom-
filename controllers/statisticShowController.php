@@ -34,7 +34,7 @@ function get_statistic()
 
 function clear_session()
 {
-    $_SESSION['STATISTIC']['ERRORS'] = [];
+
 }
 
 function get_all_statistic()
@@ -60,6 +60,7 @@ function get_single_statistic()
     $surname = $_SESSION['STATISTIC']['surname'];
     $name = $_SESSION['STATISTIC']['name'];
     $middlename = $_SESSION['STATISTIC']['middlename'];
+
 
     if (preg_match('/[^,\p{Cyrillic}]/ui', $surname))
     {
