@@ -5,3 +5,7 @@
 .accordion-button {
     display: block !important;
 }
+
+.my-box {
+    min-height: 402px;
+}

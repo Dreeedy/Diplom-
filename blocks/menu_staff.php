@@ -1,5 +1,5 @@
 <div class="col">
-    <div class="card shadow-sm">
+    <div class="card shadow-sm my-box">
 
         <img class="my-1 mx-auto img-fluid px-2" src="../img/staff-data-folder-interface-symbol.svg" alt="" width="256"
              height="256">
