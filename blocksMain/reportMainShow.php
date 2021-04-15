@@ -146,7 +146,10 @@
                         ?>
 
                         <?php foreach ($a as $key => $value): ?>
+                        <form method="GET" action="../controllers/reportShowDeleteReportController.php">
                             <a href="../export/<? echo $value ?>" download> <? echo $value ?> </a>
+                            <button type="submit" class="btn btn-outline-primary btn-sm ms-4" value="<?echo $value?>" name="report_name">Удалить</button>
+                        </form>
                             <br>
                         <?php endforeach; ?>
                     </div>
